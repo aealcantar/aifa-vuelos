@@ -1,0 +1,210 @@
+div.group-button button {
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.text-link {
+  line-height: 21px;
+  font-size: 14px;
+}
+
+::ng-deep .p-button.p-button-text:focus {
+  box-shadow: none;
+}
+
+::ng-deep .p-panel .p-panel-content {
+  border: 1px solid var(--surface-border);
+  margin: 16px;
+}
+
+.title-personal-autorizado {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  text-align: left;
+  color: #101828;
+}
+
+.sub-title-personal-autorizado {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0;
+  text-align: left;
+  color: #667085;
+}
+
+
+.bg-file {
+  background-color: #F6F7F9;
+}
+
+span.pi.pi-cloud-upload, span.pi.pi-cloud-download {
+  transform: scale(1.7);
+} 
+
+
+
+/* --- */
+::ng-deep .p-panel .p-panel-content {
+  border: 1px solid var(--surface-border);
+  margin: 16px;
+}
+
+.checkbox-padding {
+  padding-top: 0.4rem;
+  padding-left: 1.5rem;
+}
+
+.personal-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: center;
+  color: #101828;
+}
+
+.personal-sub-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  color: #667085;
+}
+
+.p-button-text-icon-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.p-button-text-icon-right img {
+  width: 16px;
+  height: 16px;
+}
+
+.header-panel {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: left;
+  color: #1E1C1C;
+}
+
+input {
+  width: 100%;
+  height: 35px;
+  padding: 0 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  border: 2px solid #f6f6f6;
+  box-shadow: none;
+
+  &::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid #e10000 !important;
+
+    &::placeholder {
+      color: #e10000;
+    }
+  }
+}
+
+i + img {
+  right: 20px;
+}
+
+input:not(.ng-invalid.ng-touched) ~ img {
+  right: 0;
+}
+
+span.campo-obligatorio {
+  margin-top: 4px;
+  font-size: 10px;
+  color: #e10000;
+  display: block;
+}
+
+.campos-obligatorios {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.input-icon-right {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  i {
+    position: absolute;
+    top: 1.5rem !important;
+    right: 1rem !important;
+    pointer-events: none;
+
+    &.md {
+      top: 1.3rem;
+      right: 0.5rem !important;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0.1rem;
+    right: 5rem;
+    cursor: pointer;
+    transition: right 0.3s ease;
+  }
+}
+
+
+::ng-deep p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
+  border: 1px solid #e24c4c !important;
+  color: #e24c4c !important;
+}
+
+::ng-deep p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext::placeholder {
+  color: #e24c4c !important;
+}
+
+
+.campo-info {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.titulo-mensaje-rechazado {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: left;
+  color: #BA454F;
+}
+
+.sub-titulo-mensaje-rechazado {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.content-mensaje-rechazado {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+::ng-deep.p-message.p-message-error {
+  border: none;
+}

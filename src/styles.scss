@@ -1,0 +1,260 @@
+@import "assets/scss/primeng-custom/index";
+@import "assets/scss/design-system/index";
+@import "assets/scss/icons/index";
+
+:root {
+  --fortaleza-max-width: 1440px;
+
+  @media screen and (min-width: 1440px) {
+    --fortaleza-max-width: 1600px;
+  }
+
+  @media screen and (min-width: 1600px) {
+    --fortaleza-max-width: 1900px;
+  }
+
+  @media screen and (min-width: 1900px) {
+    --fortaleza-max-width: 2100px;
+  }
+}
+
+.container {
+  width: 100% !important;
+}
+
+.container-fortaleza {
+  max-width: var(--fortaleza-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-component {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+html {
+  font-size: 10px;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+app-root {
+  display: block;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.publico-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+
+  .form-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h3 {
+      margin: 0;
+      font-size: 2.4rem;
+      color: #404041;
+      font-weight: 700;
+      line-height: 3.2rem;
+    }
+
+    label {
+      color: #404041;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+    }
+
+    i {
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      height: 35px;
+      padding: 0 12px;
+      border-radius: 5px;
+      font-size: 14px;
+      border: 2px solid #f6f6f6;
+      box-shadow: none;
+
+      &::placeholder {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+      }
+
+      &.ng-invalid.ng-touched {
+        border: 1px solid #e10000;
+
+        &::placeholder {
+          color: #e10000;
+        }
+      }
+    }
+
+    i + img {
+      right: 20px;
+    }
+
+    input:not(.ng-invalid.ng-touched) ~ img {
+      right: 0;
+    }
+
+    p-password:not(.ng-invalid.ng-touched) ~ img {
+      right: 0;
+    }
+
+    span.campo-obligatorio {
+      margin-top: 4px;
+      font-size: 10px;
+      color: #e10000;
+      display: block;
+    }
+
+    .campos-obligatorios {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 21px;
+    }
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1.4rem;
+  }
+}
+
+.curp-validation {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 31px;
+  color: #e10000;
+}
+
+input.ng-invalid.ng-touched + .pi-exclamation-triangle {
+  color: #e10000;
+  display: inline-block;
+}
+
+p-password.ng-invalid.ng-touched + .pi-exclamation-triangle {
+  color: #e10000;
+  display: inline-block;
+}
+
+i.pi-exclamation-triangle {
+  display: none;
+  transform: translateY(-3px);
+}
+
+.p-card {
+  width: 450px !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.input-icon-right {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  i {
+    position: absolute;
+    top: 1.2rem !important;
+    right: 0.7rem;
+    pointer-events: none;
+
+    &.md {
+      top: 1.3rem;
+      right: 0.5rem !important;
+    }
+  }
+
+  img {
+    position: absolute;
+    top: 0.1rem;
+    right: 5rem;
+    cursor: pointer;
+    transition: right 0.3s ease;
+  }
+}
+
+.control-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.control-label-disabled {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: left;
+  color: #6f7271;
+}
+
+.formato-label {
+  font-size: 14px;
+  color: #404041;
+  font-weight: 400;
+}
+
+.p-password {
+  width: 100%;
+
+  input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+
+  .input-icon-right {
+    i.pi-exclamation-triangle {
+      position: absolute;
+      top: 50%;
+      right: 3.5rem;
+      transform: translateY(-50%);
+      color: #e10000;
+      display: none;
+      pointer-events: none;
+    }
+
+    input.ng-invalid.ng-touched + i.pi-exclamation-triangle {
+      display: inline-block;
+    }
+
+    img {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      cursor: pointer;
+      transition: right 0.3s ease;
+    }
+
+    input.ng-invalid.ng-touched ~ img {
+      right: 3.5rem;
+    }
+  }
+}

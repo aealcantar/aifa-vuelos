@@ -1,0 +1,331 @@
+<div class="p-5">
+  <app-titulo-principal [titulo]="'Gestión de contratos y acuerdos'"/>
+</div>
+<div class="px-5">
+  <p-tabView class="px-3" [(activeIndex)]="activeIndex" (onChange)="limpiar()">
+    <p-tabPanel header="Contratos">
+      <form [formGroup]="busquedaForm" (submit)="buscar()" (reset)="limpiar()">
+        <div class="flex flex-row mt-4">
+          <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+            <label class="control-label pb-2" for="numeroContratoContrato">Número de contrato:</label>
+            <input id="numeroContratoContrato"
+                   class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="numeroContrato"
+                   [maxlength]="20"
+                   placeholder="Ingresar número de contrato" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+            <label class="control-label pb-2" for="rfcContrato">RFC:</label>
+            <input id="rfcContrato" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="rfc"
+                   [maxlength]="13"
+                   placeholder="Ingresar RFC" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <label class="control-label pb-2" for="inicioVigencia">Fecha inicio de vigencia:</label>
+            <p-calendar formControlName="inicioVigencia" id="inicioVigencia" [showIcon]="true"
+                        [placeholder]="'Seleccionar'"/>
+
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <label class="control-label pb-2" for="estatus">Estatus:</label>
+            <p-dropdown id="estatus" formControlName="estatus"
+                        styleClass="form-control w-full" [options]="estatus"
+                        optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                        optionValue="value" placeholder="Seleccionar"
+                        [emptyMessage]="'Sin resultados'">
+            </p-dropdown>
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <div class="flex justify-content-end gap-5 pt-3">
+              <button id="clean_register_btn" type="reset" class="p-button-outlined" [disabled]="busquedaForm.pristine"
+                      pButton>Limpiar
+              </button>
+              <button id="search_register_btn" type="submit" [disabled]="busquedaForm.pristine" pButton>Buscar</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="flex justify-content-start mt-3 mb-3">
+          <span class="formato-label">* Campos obligatorios</span>
+        </div>
+      </form>
+    </p-tabPanel>
+    <p-tabPanel header="Acuerdos">
+      <form [formGroup]="busquedaForm" (submit)="buscar()" (reset)="limpiar()">
+        <div class="flex flex-row mt-4">
+          <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+            <label class="control-label pb-2" for="numeroContratoAcuerdo">Número de documento:</label>
+            <input id="numeroContratoAcuerdo"
+                   class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="numeroContrato"
+                   [maxlength]="20"
+                   placeholder="Ingresar número de documento" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+            <label class="control-label pb-2" for="rfcContrato">RFC:</label>
+            <input id="rfcContrato" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="rfc"
+                   [maxlength]="13"
+                   placeholder="Ingresar RFC" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <label class="control-label pb-2" for="inicioVigencia">Fecha inicio de vigencia:</label>
+            <p-calendar formControlName="inicioVigencia" id="inicioVigencia" [showIcon]="true"
+                        [placeholder]="'Seleccionar'"/>
+
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <label class="control-label pb-2" for="estatus">Estatus:</label>
+            <p-dropdown id="estatus" formControlName="estatus"
+                        styleClass="form-control w-full" [options]="estatus"
+                        optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                        optionValue="value" placeholder="Seleccionar"
+                        [emptyMessage]="'Sin resultados'">
+            </p-dropdown>
+          </div>
+          <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+            <div class="flex justify-content-end gap-5 pt-3">
+              <button id="clean_register_btn" type="reset" class="p-button-outlined" [disabled]="busquedaForm.pristine"
+                      pButton>Limpiar
+              </button>
+              <button id="search_register_btn" type="submit" [disabled]="busquedaForm.pristine" pButton>Buscar</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="flex justify-content-start mt-3 mb-3">
+          <span class="formato-label">* Campos obligatorios</span>
+        </div>
+      </form>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+<div class="px-5 pb-5">
+  <div class="flex align-content-start">
+    <p-avatar
+      styleClass="mr-2"
+      size="xlarge"
+      [image]="'assets/images/icons/icon_registers.svg'"
+      [style]="{ 'background-color': '#EDFAEB', color: '#6CD75B', border: '3px solid #F9F5FF' }"
+      shape="circle"/>
+    @if (activeIndex === 0) {
+      <h2 class="header-panel">Registros de contratos</h2>
+    } @else {
+      <h2 class="header-panel">Registros de acuerdos</h2>
+    }
+  </div>
+  <p-table [value]="registros()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+           [resizableColumns]="true" [columnResizeMode]="'expand'" [lazy]="true"
+           (onLazyLoad)="seleccionarPaginacion($event)">
+    <ng-template pTemplate="sorticon" let-order>
+      @switch (order) {
+        @case (0) {
+          <img width="14" src="assets/images/icons/chevron-contract.svg" alt=""/>
+        }
+        @case (1) {
+          <img width="14" src="assets/images/icons/chevron-down.svg" alt=""/>
+        }
+        @default {
+          <img width="14" src="assets/images/icons/chevron-up.svg" alt=""/>
+        }
+      }
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="numContrato" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            @if (activeIndex === 0) {
+              <span class="text-chico">Número de contrato</span>
+            } @else {
+              <span class="text-chico">Número de documento</span>
+            }
+            <p-sortIcon field="numContrato"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="razonSocial" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Razón Social</span>
+            <p-sortIcon field="razonSocial"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="rfc" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">RFC</span>
+            <p-sortIcon field="rfc"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="tipoProveedor" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Tipo de organismo</span>
+            <p-sortIcon field="tipoProveedor"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="marcaComercial" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Marca comercial o sigla del organismo</span>
+            <p-sortIcon field="marcaComercial"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="numColaboradores" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Número de colaboradores</span>
+            <p-sortIcon field="numColaboradores"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="nomSucursal" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Nombre de la sucursal</span>
+            <p-sortIcon field="nomSucursal"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="personaPrincipalAutorizada" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Persona autorizada</span>
+            <p-sortIcon field="personaPrincipalAutorizada"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="vigenciaContrato" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Vigencia de contrato</span>
+            <p-sortIcon field="vigenciaContrato"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="fechaInicioVigencia" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Fecha de inicio de vigencia</span>
+            <p-sortIcon field="fechaInicioVigencia"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="fechaFinVigencia" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Fecha de fin de vigencia</span>
+            <p-sortIcon field="fechaFinVigencia"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="curso" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Curso ASVEC</span>
+            <p-sortIcon field="curso"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="vigenciaContrato" scope="col" pFrozenColumn alignFrozen="right">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Vigencia</span>
+            <p-sortIcon field="vigenciaContrato"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="estatusContrato" scope="col" pFrozenColumn alignFrozen="right">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Estatus</span>
+            <p-sortIcon field="estatusContrato"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="acciones" scope="col" pFrozenColumn alignFrozen="right">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Acciones</span>
+            <p-sortIcon field="acciones"></p-sortIcon>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro>
+      <tr>
+        <td>
+          @if (registro.refContratoAcuerdo) {
+            {{ registro.refContratoAcuerdo | uppercase }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.razonSocial | uppercase }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.rfc | uppercase }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.tipoProveedor | uppercase }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.marcaSigla | uppercase }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.numCol }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.refSucursal }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ obtenerPersonaPrincipal(registro.proveedor.usuarios) }}
+          }
+        </td>
+        <td>
+          @if (registro.proveedor) {
+            {{ calcularDiferenciaFechas(registro.fechaInicioVigencia, registro.fechaFinVigencia) }}
+          }
+        </td>
+        <td>{{ registro.fechaInicioVigencia | date:'dd/MM/yyyy' }}</td>
+        <td>{{ registro.fechaFinVigencia | date:'dd/MM/yyyy' }}</td>
+        <td>
+          @if (registro.proveedor) {
+            {{ registro.proveedor.avsec === 1 ? 'SI' : 'NO' }}
+          }
+        </td>
+        <td alignFrozen="right" pFrozenColumn>
+          <div class="flex justify-content-center">
+            <app-tag-vigencia-contrato [fechaFin]="registro.fechaFinVigencia"
+                                       [fechaInicio]="registro.fechaInicioVigencia"/>
+          </div>
+        </td>
+        <td alignFrozen="right" pFrozenColumn>
+          <div class="flex justify-content-center">
+            <app-tag-estatus-contrato [label]="registro.estatusContrato"/>
+          </div>
+        </td>
+        <td alignFrozen="right" pFrozenColumn class="text-center">
+          @if (registro.estatusContrato && ((registro.estatusContrato.toUpperCase() === 'En proceso'.toUpperCase()) || (registro.estatusContrato.toUpperCase() === 'rechazado'.toUpperCase())  )) {
+            <app-tabla-acciones-overlay
+              [idsAcciones]="acciones"
+              (opcionSeleccionada)="obtenerAccionSeleccionada($event, registro)"></app-tabla-acciones-overlay>
+          } @else if (registro.estatusContrato &&
+          (['ACTIVO', 'EN VALIDACION'].includes(registro.estatusContrato.toUpperCase()))) {
+            <app-tabla-acciones-overlay
+              [idsAcciones]="accionesDetalle"
+              (opcionSeleccionada)="obtenerAccionSeleccionada($event, registro)"></app-tabla-acciones-overlay>
+          }
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="14"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  @if (paginasTotales > 1) {
+    <div class="flex justify-content-between align-items-center bg-white pt-3">
+        <span class="flex-1 text-base">{{ cantInferiorPagina }} - {{ cantSuperiorPagina }} / {{ paginasTotales }}
+          páginas </span>
+      <div class="flex-1">
+        <p-paginator
+          (onPageChange)="seleccionarPaginacion($event)"
+          [first]="first"
+          [rows]="rows"
+          [totalRecords]="totalElementos"></p-paginator>
+      </div>
+      <div class="flex-1 visibility-hidden"></div>
+    </div>
+  }
+</div>

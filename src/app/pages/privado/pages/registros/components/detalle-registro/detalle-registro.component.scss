@@ -1,0 +1,40 @@
+::ng-deep .p-panel .p-panel-content {
+  border: 1px solid var(--surface-border);
+  margin: 16px;
+}
+
+.campo-info {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.titulo-mensaje-rechazado {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-align: left;
+  color: #BA454F;
+}
+
+.sub-titulo-mensaje-rechazado {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.content-mensaje-rechazado {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+::ng-deep.p-message.p-message-error {
+  border: none;
+}

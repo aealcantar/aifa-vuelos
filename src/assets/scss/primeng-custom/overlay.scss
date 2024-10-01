@@ -1,0 +1,61 @@
+
+.p-overlaypanel .p-overlaypanel-content {
+  background-color: #09212E;
+  padding: 0;
+}
+
+.p-overlaypanel {
+  background: #09212E;
+}
+
+.p-overlaypanel .p-overlaypanel-content {
+  border-radius: 8px;
+  border: 6px solid #09212E;
+}
+
+.p-overlaypanel.p-overlaypanel-flipped::before {
+  border-top-color: #09212E;
+}
+
+.p-overlaypanel.p-overlaypanel-flipped::after {
+  border-top-color: #09212E;
+}
+
+.p-overlaypanel.p-overlaypanel::before {
+  border-bottom-color: #09212E;
+}
+
+.p-overlaypanel.p-overlaypanel::after {
+  border-bottom-color: #09212E;
+}
+
+/* Estilos para el contenido del panel de notificaciones */
+.custom-overlaypanel .p-overlaypanel-content {
+  background-color: #FFF;
+  padding: 0;
+  border-radius: 8px;
+  border: 6px solid #FFF;
+}
+
+/* Estilos para el panel completo */
+.custom-overlaypanel {
+  background: #FFF;
+}
+
+/* Estilos para la flecha cuando el panel está volteado */
+.custom-overlaypanel .p-overlaypanel-flipped::before {
+  border-top-color: #FFF;
+}
+
+.custom-overlaypanel .p-overlaypanel-flipped::after {
+  border-top-color: #FFF;
+}
+
+/* Estilos para la flecha en estado normal */
+.custom-overlaypanel::before {
+  border-bottom-color: #FFF;
+}
+
+.custom-overlaypanel::after {
+  border-bottom-color: #FFF;
+}

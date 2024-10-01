@@ -1,0 +1,26 @@
+.p-dropdown .p-dropdown-label {
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 5px;
+  border: 2px solid #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+}
+
+.p-dropdown .p-dropdown-label.p-disabled {
+  background-color: #ddd;
+}
+
+.p-dropdown.ng-dirty.ng-invalid .p-dropdown-label {
+  border: 1px solid #dc3545;
+}
+
+p-dropdown.ng-dirty.ng-invalid .p-dropdown .p-dropdown-label{
+  color: #dc3545 !important;
+}

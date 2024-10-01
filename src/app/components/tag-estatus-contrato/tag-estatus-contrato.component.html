@@ -1,0 +1,20 @@
+@switch (label) {
+  @case ('Activo'.toUpperCase()) {
+    <p-tag severity="success" value="• Activo"/>
+  }
+  @case ('En Proceso'.toUpperCase()) {
+    <p-tag severity="warning" value="• En Proceso"/>
+  }
+  @case ('En validacion'.toUpperCase()) {
+    <p-tag severity="info" value="• En validación"/>
+  }
+  @case ('Rechazado'.toUpperCase()) {
+    <p-tag severity="danger" value="• Rechazado"/>
+  }
+  @case ('Expirado'.toUpperCase()) {
+    <p-tag severity="contrast" value="• Expirado"/>
+  }
+  @case ('Cancelado'.toUpperCase()) {
+    <p-tag severity="secondary" value="• Cancelado"/>
+  }
+}

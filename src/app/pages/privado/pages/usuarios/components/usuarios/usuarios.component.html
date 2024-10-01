@@ -1,0 +1,337 @@
+<div class="p-5">
+  <app-titulo-principal [titulo]="'Gestión de usuarios'"/>
+</div>
+
+<div class="flex justify-content-between align-items-center pl-5 pr-5">
+  <div class="flex align-content-start ml-5">
+    <h2 class="header-panel">Búsqueda de usuarios</h2>
+  </div>
+  <button pButton type="button" class="p-button-text-icon-right p-button-primary-green" (click)="navegarNuevoUsuario()"
+          [disabled]="idRol !== 1">
+    Nuevo Usuario
+    <img src="../../../../../../../assets/images/icons/add_user.svg" alt="Icono Agregar Usuario" class="ml-3"/>
+  </button>
+</div>
+
+<p-panel class="ml-3 mr-3" [showHeader]="false">
+  <form [formGroup]="busquedaUsuariosForm" (submit)="buscar()" (reset)="limpiar()">
+    @if (idRol === 1) {
+      <div class="flex flex-row">
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3">
+          <label class="control-label pb-2" for="rol">Rol:</label>
+          <p-dropdown id="rol" formControlName="rol"
+                      styleClass="form-control w-full" [options]="roles"
+                      optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                      optionValue="value" placeholder="Seleccionar Rol"
+                      [emptyMessage]="'Sin resultados'" (onChange)="limpiarCampos()">
+          </p-dropdown>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3">
+          <label class="control-label pb-2" for="nombreGIA">Nombre(s):</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="nombreGIA"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="nombre" [maxlength]="20"
+                 placeholder="Ingresar Nombre(s):" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+          <label class="control-label pb-2" for="apellidoPaternoGIA">Apellido paterno:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="apellidoPaternoGIA" [maxlength]="20"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="apellidoPaterno"
+                 placeholder="Ingresar Apellido paterno" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+          <label class="control-label pb-2" for="apellidoMaternoGIA">Apellido materno:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="apellidoMaternoGIA" [maxlength]="20"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="apellidoMaterno"
+                 placeholder="Ingresar Apellido materno" pInputText>
+        </div>
+      </div>
+      @if (busquedaUsuariosForm.get('rol')?.value === 2) {
+        <div class="flex flex-row">
+          <div class="sm:col-6 md:col-3 lg:col-3 pl-3">
+            <label class="control-label pb-2" for="tipoUsuario">Tipo de usuario:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="tipoUsuario" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="tipoUsuario"
+                   placeholder="Ingresar tipo de usuario" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-3 lg:col-3 pl-3">
+            <label class="control-label pb-2" for="razonSocial">Nombre o Razón social:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="razonSocial" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="razonSocial" [maxlength]="50"
+                   placeholder="Ingresar nombre o razón social" pInputText>
+          </div>
+          <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+            <label class="control-label pb-2" for="tipoProveedor">Tipo de organismo:</label>
+            <p-dropdown id="tipoProveedor" formControlName="tipoProveedor"
+                        styleClass="form-control w-full" [options]="tiposProveedor"
+                        optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                        optionValue="value" placeholder="Seleccionar"
+                        [emptyMessage]="'Sin resultados'">
+            </p-dropdown>
+          </div>
+          <div class="sm:col-6 md:col-3 lg:col-3 pl-3">
+            <label class="control-label pb-2" for="curpExterno">CURP:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="curpExterno" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="curp" [maxlength]="18"
+                   placeholder="Ingresar CURP" pInputText>
+          </div>
+        </div>
+      }
+      <div class="flex flex-row">
+        <div class="sm:col-6 md:col-3 lg:col-3 pl-3">
+          @if (busquedaUsuariosForm.get('rol')?.value === 1) {
+            <label class="control-label pb-2" for="correoGIA">Correo electrónico:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="correoGIA" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="correo" [maxlength]="50"
+                   placeholder="Ingresar correo electrónico" pInputText>
+          }
+          @if (busquedaUsuariosForm.get('rol')?.value === 2) {
+            <label class="control-label pb-2" for="numeroDocumento">Número de documento:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="numeroDocumento" [maxlength]="20"
+                   class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="numeroDocumento"
+                   placeholder="Ingresar Número de documento" pInputText>
+          }
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pl-3 pr-3">
+          @if (busquedaUsuariosForm.get('rol')?.value === 1) {
+            <label class="control-label pb-2" for="cargoGIA">Cargo que desempeña:</label>
+            <input oninput="this.value = this.value.toUpperCase()"
+                   id="cargoGIA"
+                   class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="cargo" [maxlength]="30"
+                   placeholder="Ingresar Cargo que desempeña" pInputText>
+          }
+          @if (busquedaUsuariosForm.get('rol')?.value === 2) {
+            <label class="control-label pb-2" for="estatus">Estatus:</label>
+            <p-dropdown id="estatusExterno" formControlName="estatus"
+                        styleClass="form-control w-full" [options]="estatus"
+                        optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                        optionValue="value" placeholder="Seleccionar Estatus"
+                        [emptyMessage]="'Sin resultados'">
+            </p-dropdown>
+          }
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pl-3 pr-3">
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3">
+          <div class="flex justify-content-end gap-5 pt-3">
+            <button id="clean_register_btn_gia" class="p-button-outlined" pButton
+                    [disabled]="busquedaUsuariosForm.pristine"
+                    type="reset">
+              Limpiar
+            </button>
+            <button id="search_register_btn_gia" pButton [disabled]="busquedaUsuariosForm.pristine" type="submit">
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      @if (busquedaUsuariosForm.get('rol')?.value === 2) {
+        <div class="flex flex-row"></div>
+      }
+    } @else {
+      <div class="flex flex-row">
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3">
+          <label class="control-label pb-2" for="nombre">Nombre(s):</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="nombre" [maxlength]="20"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="nombre"
+                 placeholder="Ingresar Nombre(s):" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+          <label class="control-label pb-2" for="apellidoPaterno">Apellido paterno:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="apellidoPaterno" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="apellidoPaterno" [maxlength]="20"
+                 placeholder="Ingresar Apellido paterno" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+          <label class="control-label pb-2" for="apellidoMaterno">Apellido materno:</label>
+          <input oninput="this.value = this.value.toUpperCase()" [maxlength]="20"
+                 id="apellidoMaterno" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="apellidoMaterno"
+                 placeholder="Ingresar Apellido materno" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pl-3">
+          <label class="control-label pb-2" for="correo">Correo electrónico:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="correo" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="correo" [maxlength]="50"
+                 placeholder="Ingresar correo electrónico" pInputText>
+        </div>
+      </div>
+      <div class="flex flex-row mt-4">
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3">
+          <label class="control-label pb-2" for="curp">CURP:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="curp" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="curp" [maxlength]="18"
+                 placeholder="Ingresar CURP" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pr-3 pl-3">
+          <label class="control-label pb-2" for="estatus">Estatus:</label>
+          <p-dropdown id="estatus" formControlName="estatus"
+                      styleClass="form-control w-full" [options]="estatus"
+                      optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                      optionValue="value" placeholder="Seleccionar Estatus"
+                      [emptyMessage]="'Sin resultados'">
+          </p-dropdown>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3 pl-3 pr-3">
+          <label class="control-label pb-2" for="cargo">Cargo que desempeña:</label>
+          <input oninput="this.value = this.value.toUpperCase()"
+                 id="cargo" [maxlength]="30"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="cargo"
+                 placeholder="Ingresar Cargo que desempeña" pInputText>
+        </div>
+        <div class="sm:col-6 md:col-3 lg:col-3">
+          <div class="flex justify-content-end gap-5 pt-3">
+            <button id="clean_register_btn" class="p-button-outlined" pButton [disabled]="busquedaUsuariosForm.pristine"
+                    type="reset">
+              Limpiar
+            </button>
+            <button id="search_register_btn" pButton [disabled]="busquedaUsuariosForm.pristine" type="submit">Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </form>
+</p-panel>
+
+<p-panel class="ml-3 mr-3" [showHeader]="false">
+  <div class="flex align-content-start">
+    <p-avatar
+      [image]="'assets/images/icons/icon_registers.svg'"
+      styleClass="mr-2" size="xlarge" shape="circle"
+      [style]="{ 'background-color': '#EDFAEB', color: '#6CD75B', border: '3px solid #F9F5FF' }"/>
+    <h2 class="header-panel">Registros de usuarios</h2>
+  </div>
+  <p-table [value]="usuarios()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+           [resizableColumns]="true" [columnResizeMode]="'expand'" [lazy]="true"
+           (onLazyLoad)="seleccionarPaginacion($event)">
+    <ng-template pTemplate="sorticon" let-order>
+      @switch (order) {
+        @case (0) {
+          <img width="14" src="assets/images/icons/chevron-contract.svg" alt=""/>
+        }
+        @case (1) {
+          <img width="14" src="assets/images/icons/chevron-down.svg" alt=""/>
+        }
+        @default {
+          <img width="14" src="assets/images/icons/chevron-up.svg" alt=""/>
+        }
+      }
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="numDocumento" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Número de documento</span>
+            <p-sortIcon field="numDocumento"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="tipoDocumento" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Tipo de documento</span>
+            <p-sortIcon field="tipoDocumento"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="nombre" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Nombre(s)</span>
+            <p-sortIcon field="nombre"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="apellidoPaterno" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Apellido paterno</span>
+            <p-sortIcon field="apellidoPaterno"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="apellidoMaterno" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Apellido materno</span>
+            <p-sortIcon field="apellidoMaterno"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="correo" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Correo electrónico</span>
+            <p-sortIcon field="correo"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="curp" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">CURP</span>
+            <p-sortIcon field="curp"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="cargo" scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Cargo que desempeña</span>
+            <p-sortIcon field="cargo"></p-sortIcon>
+          </div>
+        </th>
+        <th pSortableColumn="estatus" scope="col" pFrozenColumn [alignFrozen]="'right'">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Estatus</span>
+            <p-sortIcon field="estatus"></p-sortIcon>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>{{ usuario.numero_documento | uppercase }}</td>
+        <td>{{ usuario.tipo_documento | uppercase }}</td>
+        <td>{{ usuario.ref_nombre | uppercase }}</td>
+        <td>{{ usuario.ref_primer_apellido | uppercase }}</td>
+        <td>{{ usuario.ref_segundo_apellido | uppercase }}</td>
+        <td>{{ usuario.ref_email | uppercase }}</td>
+        <td>{{ usuario.cve_curp | uppercase }}</td>
+        <td>{{ usuario.ref_cargo | uppercase }}</td>
+        <td pFrozenColumn [alignFrozen]="'right'" class="text-center">
+          @if (usuario.ind_activo === 1) {
+            <p-tag severity="success" value="• Activo"/>
+          } @else {
+            <p-tag severity="secondary" value="• Inactivo"/>
+          }
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="9" class="text-center header-panel"> Sin Resultados</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  @if (paginasTotales > 1) {
+    <div class="flex justify-content-between align-items-center bg-white pt-3">
+      <span class="flex-1 text-base">{{ cantInferiorPagina }} - {{ cantSuperiorPagina }} / {{ paginasTotales }}
+        páginas </span>
+      <div class="flex-1">
+        <p-paginator
+          (onPageChange)="seleccionarPaginacion($event)"
+          [first]="first"
+          [rows]="rows"
+          [totalRecords]="totalElementos"></p-paginator>
+      </div>
+      <div class="flex-1 visibility-hidden"></div>
+    </div>
+  }
+</p-panel>

@@ -1,0 +1,7 @@
+<router-outlet/>
+<p-toast position="top-right" [baseZIndex]="5000" [life]="5000" >
+  <ng-template let-message pTemplate="message" >
+    <app-alerta [message]="message"></app-alerta>
+  </ng-template>
+</p-toast>
+<app-loader ></app-loader>

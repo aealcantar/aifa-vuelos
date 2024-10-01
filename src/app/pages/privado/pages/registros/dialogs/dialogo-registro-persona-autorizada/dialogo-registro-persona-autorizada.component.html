@@ -1,0 +1,124 @@
+<div class="flex align-content-start ml-3 mt-3">
+  <p-avatar
+    icon="icon-add-user"
+    styleClass="mr-3"
+    size="xlarge"
+    [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+    shape="circle"/>
+  <div>
+    <span class="title-personal-autorizado">Registrar persona autorizada</span>
+    <p class="sub-title-personal-autorizado">Ingresar los datos solicitados</p>
+  </div>
+</div>
+<form [formGroup]="agregarPersonalForm" (submit)="guardarPersonaAutorizada()">
+  <div class="flex flex-row mt-4">
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="curp">CURP*:</label>
+      <span class="input-icon-right w-full">
+        <input id="curp"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="curp" [maxLength]="18"
+               placeholder="Ingresar CURP" pInputText
+               oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched)}"/>
+        <i class="pi pi-exclamation-triangle" id="icon_alert_recover_pass_curp"></i>
+      </span>
+      @if (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+
+      @if (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched)) {
+        <span class="campo-obligatorio mt-2">El formato de CURP no es válido.</span>
+      }
+    </div>
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="nombre">Nombre(s)*:</label>
+      <span class="input-icon-right w-full">
+        <input id="nombre"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="nombre" [maxLength]="20"
+               [ngClass]="{'ng-dirty ng-invalid': f['nombre'].errors?.['required'] && (f['nombre'].dirty || f['nombre'].touched)}"
+               placeholder="Ingresar Nombre(s)" pInputText
+               oninput="this.value = this.value.toUpperCase()">
+        <i class="pi pi-exclamation-triangle"></i>
+      </span>
+      @if (f['nombre'].errors?.['required'] && (f['nombre'].dirty || f['nombre'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+    </div>
+  </div>
+  <div class="flex flex-row mt-4">
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="apellidoPaterno">Apellido paterno*:</label>
+      <span class="input-icon-right w-full">
+        <input id="apellidoPaterno"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="apellidoPaterno" [maxLength]="20"
+               oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['apellidoPaterno'].errors?.['required'] && (f['apellidoPaterno'].dirty || f['apellidoPaterno'].touched)}"
+               placeholder="Ingresar Apellido paterno" pInputText>
+        <i class="pi pi-exclamation-triangle"></i>
+      </span>
+      @if (f['apellidoPaterno'].errors?.['required'] && (f['apellidoPaterno'].dirty || f['apellidoPaterno'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+    </div>
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="apellidoMaterno">Apellido materno*:</label>
+      <span class="input-icon-right w-full">
+        <input id="apellidoMaterno"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="apellidoMaterno" [maxLength]="20"
+               oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['apellidoMaterno'].errors?.['required'] && (f['apellidoMaterno'].dirty || f['apellidoMaterno'].touched)}"
+               placeholder="Ingresar Apellido materno" pInputText>
+        <i class="pi pi-exclamation-triangle"></i>
+      </span>
+      @if (f['apellidoMaterno'].errors?.['required'] && (f['apellidoMaterno'].dirty || f['apellidoMaterno'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+    </div>
+  </div>
+  <div class="flex flex-row mt-4">
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="correo">Correo electrónico*:</label>
+      <span class="input-icon-right w-full">
+        <input id="correo"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="correo"
+               oninput="this.value = this.value.toUpperCase()" [maxLength]="50"
+               placeholder="Ingresar Correo electrónico" pInputText
+               [ngClass]="{'ng-dirty ng-invalid': (f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)) ||
+               (f['correo'].errors?.['pattern'] && (f['correo'].dirty || f['correo'].touched))}">
+        <i class="pi pi-exclamation-triangle"></i>
+      </span>
+      @if (f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+      @if (f['correo'].errors?.['pattern'] && (f['correo'].dirty || f['correo'].touched)) {
+        <span class="campo-obligatorio mt-2">El formato de correo no es válido.</span>
+      }
+    </div>
+    <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+      <label class="control-label mb-4" for="cargo">Cargo que desempeña*:</label>
+      <span class="input-icon-right w-full">
+        <input id="cargo" [maxLength]="30"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="cargo" oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['cargo'].errors?.['required'] && (f['cargo'].dirty || f['cargo'].touched)}"
+               placeholder="Ingresar Cargo que desempeña" pInputText>
+        <i class="pi pi-exclamation-triangle"></i>
+      </span>
+      @if (f['cargo'].errors?.['required'] && (f['cargo'].dirty || f['cargo'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+    </div>
+  </div>
+  <div class="flex justify-content-center gap-3 pt-5">
+    <button id="cancel_close_sesion_btn" class="p-button-outlined" pButton
+            (click)="this.ref.close({ personal: null })" type="button">Cancelar
+    </button>
+    <button id="accept_close_sesion_btn" pButton type="submit" [disabled]="agregarPersonalForm.invalid">Agregar
+    </button>
+  </div>
+</form>

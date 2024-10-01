@@ -1,0 +1,264 @@
+<div class="p-5">
+  <app-titulo-principal [titulo]="'Validación del registro complementario de ' +
+  (detalleRegistro.contrato.idTipo === 1 ? 'contrato' : 'acuerdo')" [ruta]="'./..'"/>
+</div>
+
+<p-panel class="ml-3 mr-3" [showHeader]="false">
+  <div class="flex align-content-start ml-3">
+    <p-avatar
+      icon="icon-user_data"
+      styleClass="mr-2"
+      size="xlarge"
+      [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+      shape="circle"/>
+    <h2 class="header-panel">Datos iniciales</h2>
+  </div>
+  <div class="flex flex-row mt-4">
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Número de contrato:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.refContrato }}</span>
+      </div>
+    </div>
+    <div class="lg:col-6 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Nombre o Razón Social:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.razonSocial }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">RFC:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.rfc }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Tipo de organismo:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.tipoProveedor }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row mt-4">
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Marca o sigla del organismo:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.siglasEmpresa }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Número de colaboradores:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.numColaboradores }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Fecha de inicio de vigencia:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.fecInicioVigencia | date:'dd/MM/YY'}}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Fecha fin de vigencia:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.fecFinVigencia | date:'dd/MM/YY' }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">¿Requiere curso AVSEC?:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.refIndCursoAvsec }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">¿Es una sucursal?:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.refIndSucursal }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row mt-4">
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Giro de la empresa:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.refGiro }}</span>
+      </div>
+    </div>
+    <div class="lg:col-6 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Dirección completa:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.refDireccion }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Número de empleados operativos:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.numOperativos }}</span>
+      </div>
+    </div>
+    <div class="lg:col-2 pr-3 pl-3">
+      <div class="flex flex-column">
+        <span class="control-label mb-4">Número de empleados administrativos:</span>
+        <span class="mb-4 campo-info">{{ detalleRegistro.contrato.numAdministrativos }}</span>
+      </div>
+    </div>
+  </div>
+</p-panel>
+
+<p-panel class="ml-3 mr-3" [showHeader]="false">
+  <div class="flex justify-content-between align-items-center">
+    <div class="flex align-content-start ml-3">
+      <p-avatar
+        icon="icon-add-user"
+        styleClass="mr-2"
+        size="xlarge"
+        [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+        shape="circle"/>
+      <h2 class="header-panel">Personal autorizado</h2>
+    </div>
+  </div>
+
+  <div class="px-5 pb-5 mt-3">
+    <p-table [value]="personalAutorizado()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+             [resizableColumns]="true" [columnResizeMode]="'expand'" [lazy]="true">
+      <ng-template pTemplate="sorticon" let-order>
+        @switch (order) {
+          @case (0) {
+            <img width="14" src="assets/images/icons/chevron-contract.svg" alt=""/>
+          }
+          @case (1) {
+            <img width="14" src="assets/images/icons/chevron-down.svg" alt=""/>
+          }
+          @default {
+            <img width="14" src="assets/images/icons/chevron-up.svg" alt=""/>
+          }
+        }
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="nombres" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Nombre(s)</span>
+              <p-sortIcon field="nombres"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="curp" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">CURP</span>
+              <p-sortIcon field="curp"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="paterno" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Apellido paterno</span>
+              <p-sortIcon field="paterno"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="materno" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Apellido materno</span>
+              <p-sortIcon field="materno"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="correo" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Correo electrónico</span>
+              <p-sortIcon field="correo"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="cargo" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Cargo que desempeña</span>
+              <p-sortIcon field="cargo"></p-sortIcon>
+            </div>
+          </th>
+          <th pSortableColumn="acciones" scope="col">
+            <div class="flex justify-content-between align-items-center">
+              <span class="text-chico">Acciones</span>
+              <p-sortIcon field="acciones"></p-sortIcon>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-personal let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ personal.cveCurp }}</td>
+          <td>{{ personal.refNombre }}</td>
+          <td>{{ personal.refPrimerApellido }}</td>
+          <td>{{ personal.refSegundoApellido }}</td>
+          <td>{{ personal.refMail }}</td>
+          <td>{{ personal.refCargo }}</td>
+          <td>
+            @if (personal.indPrincipal) {
+              <div class="flex gap-3 align-items-center">
+                <p-avatar
+                  icon="icon-user-star"
+                  styleClass="mr-2"
+                  size="xlarge"
+                  [style]="{ 'background-color': '#F4DB6066', color: '#C1A519', width: '30px', height: '30px'}"
+                  shape="circle"/>
+              </div>
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</p-panel>
+
+<p-panel class="ml-3 mr-3" [showHeader]="false">
+  <div class="flex justify-content-between align-items-center">
+    <div class="flex align-content-start ml-3">
+      <p-avatar
+        icon="icon-add-user"
+        styleClass="mr-2"
+        size="xlarge"
+        [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+        shape="circle"/>
+      <h2 class="header-panel">Formato de Personal autorizado</h2>
+    </div>
+  </div>
+
+  <div class="px-5 pb-5 mt-3">
+    <p-table [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+             [resizableColumns]="true" [columnResizeMode]="'expand'" [value]="documentos()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" colspan="7">
+            <span class="text-chico">Nombre del archivo</span>
+          </th>
+          <th scope="col" class="flex justify-content-end">
+            <span class="text-chico">Acciones</span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-documento>
+        <tr>
+          <td colspan="7">
+            <div class="flex justify-content-start align-items-center">
+            <img src="assets/images/icons/icon-pdf.svg" alt="Icono PDF">
+            <span class="text-chico">{{ documento }}</span>
+            </div>
+          </td>
+          <td class="flex justify-content-end mr-3">
+            <img src="assets/images/icons/icon-detalle.svg"  alt="action" (click)="toggle($event)" class="cursor-pointer"
+                 (keydown)="handleKeyDown($event)" [style]="{ height: '30px', width: '30px'}"/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-panel>
+
+
+<div class="flex justify-content-between align-items-center">
+  <div class="flex justify-content-start mt-3 mb-3 ml-4">
+    <span class="formato-label">* Campos obligatorios</span>
+  </div>
+  <div class="flex justify-content-end gap-5 pt-9 pb-5 pr-4">
+    <button class="p-button-outlined" pButton (click)="cancelar()">Cancelar</button>
+    <button class="p-button-outlined p-button-danger" pButton (click)="abrirRechazarDialog()" onCloseOnNavigation>Rechazar</button>
+    <button pButton (click)="aprobar()">Aprobar</button>
+  </div>
+</div>

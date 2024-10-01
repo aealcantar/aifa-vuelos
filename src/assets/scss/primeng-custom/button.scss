@@ -1,0 +1,148 @@
+.p-button {
+  background: var(--azul-tono2);
+  border: 1px solid var(--azul-tono2);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0;
+  text-align: center;
+  border-radius: 50px;
+  padding: 8px 16px 8px 16px;
+}
+
+.p-button.p-button-primary:enabled:focus {
+  box-shadow: none;
+}
+
+.p-button.p-button-danger:enabled:focus {
+  box-shadow: none;
+}
+
+.p-button.p-button-primary-cta:enabled:focus {
+  box-shadow: none !important;
+}
+
+.p-button.p-button-secundary-cta:enabled:focus {
+  box-shadow: none !important;
+}
+
+.p-button.p-button-outlined {
+  color: var(--azul-tono2);
+  background: white;
+  border: 1px solid var(--azul-tono2);
+}
+
+.p-button.p-button-outlined:enabled:hover {
+  background: var(--azul-tono4);
+  color: var(--azul-tono2);
+  border: 1px solid var(--azul-tono2);
+}
+
+.p-button.p-button-outlined:disabled {
+  background-color: #E5E7EB;
+  border-color: #E5E7EB;
+  color: #8899A8;
+}
+
+.p-button:disabled.p-button-danger.p-button-outlined {
+  color: var(--bs-danger-bg-subtle);
+  background: transparent;
+  border: 1px solid var(--bs-danger-bg-subtle);
+}
+
+.p-button.p-button-danger,
+.p-buttonset.p-button-danger > .p-button,
+.p-splitbutton.p-button-danger > .p-button {
+  color: var(--blanco-tono1);
+  background: var(--bs-danger-hex-color);
+  border: 1px solid var(--bs-danger-hex-color);
+}
+
+.p-button.p-button-danger.p-button-outlined,
+.p-buttonset.p-button-danger > .p-button.p-button-outlined,
+.p-splitbutton.p-button-danger > .p-button.p-button-outlined {
+  color: #ef4444;
+  background: var(--blanco-tono1);
+  border: 1px solid var(--bs-danger-hex-color);
+}
+
+.p-button.p-button-danger.p-button-outlined:enabled:hover,
+.p-buttonset.p-button-danger > .p-button.p-button-outlined:enabled:hover,
+.p-splitbutton.p-button-danger > .p-button.p-button-outlined:enabled:hover {
+  background: #fdf1ee;
+  color: var(--gob-mx-pr-rojo-tono1);
+  border: 1px solid var(--gob-mx-pr-rojo-tono1);
+}
+
+.p-button.p-button-danger:enabled:hover,
+.p-buttonset.p-button-danger > .p-button:enabled:hover,
+.p-splitbutton.p-button-danger > .p-button:enabled:hover {
+  background: var(--bs-danger-emphasis);
+  color: var(--blanco-tono1);
+  border-color: var(--bs-danger-emphasis);
+}
+
+.p-button.p-button-primary-cta,
+.p-buttonset.p-button-primary-cta > .p-button,
+.p-splitbutton.p-button-primary-cta > .p-button {
+  color: var(--blanco-tono1);
+  background: var(--naranja-tono2) !important;
+  border: 1px solid var(--naranja-tono2) !important;
+}
+
+.p-button.p-button-primary-cta:enabled:hover,
+.p-buttonset.p-button-primary-cta > .p-button:enabled:hover,
+.p-splitbutton.p-button-primary-cta > .p-button:enabled:hover {
+  color: var(--blanco-tono1);
+  background: var(--naranja-tono1) !important;
+  border: 1px solid var(--naranja-tono1) !important;
+}
+
+.p-button.p-button-secundary-cta,
+.p-buttonset.p-button-secundary-cta > .p-button,
+.p-splitbutton.p-button-secundary-cta > .p-button {
+  color: var(--azul-tono2);
+  border: 1px solid var(--azul-tono2);
+}
+
+.p-button.p-button-secundary-cta:enabled:hover,
+.p-buttonset.p-button-secundary-cta > .p-button:enabled:hover,
+.p-splitbutton.p-button-secundary-cta > .p-button:enabled:hover {
+  background: var(--azul-tono4);
+  color: var(--azul-tono2);
+  border: 1px solid var(--azul-tono2);
+}
+
+.p-button.p-button-outlined.p-button-secundary-cta:disabled {
+  background: var(--azul-tono3);
+  border-color: var(--azul-tono3);
+  color: var(--azul-tono2);
+}
+
+.p-button.p-button-primary-green,
+.p-buttonset.p-button-primary-green > .p-button,
+.p-splitbutton.p-button-primary-green > .p-button {
+  color: var(--blanco-tono1);
+  background: #13C296 !important;
+  border: 1px solid #13C296 !important;
+}
+
+.p-button.p-button-primary-green:enabled:hover,
+.p-buttonset.p-button-primary-green > .p-button:enabled:hover,
+.p-splitbutton.p-button-primary-green > .p-button:enabled:hover {
+  color: var(--blanco-tono1);
+  background: #0FA47F !important;
+  border: 1px solid #0FA47F !important;
+}
+
+.p-button.p-button-primary-green:disabled {
+  background-color: #E5E7EB;
+  border-color: #E5E7EB;
+  color: #8899A8;
+}
+
+.p-button:disabled {
+  background-color: #E5E7EB !important;
+  border-color: #E5E7EB !important;
+  color: #8899A8 !important;
+}

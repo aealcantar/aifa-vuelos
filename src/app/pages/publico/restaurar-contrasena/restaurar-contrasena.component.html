@@ -1,0 +1,83 @@
+<div class="container-fortaleza h-screen">
+  <div class="publico-container h-full">
+    <app-aside-publico-aifa/>
+    <div class="form-section">
+      <p-tabView [activeIndex]="indiceTab()">
+        <p-tabPanel header="1 - Confirmar datos" [disabled]="indiceTab() !== 0"
+                    [headerStyleClass]="indiceTab() > 0 ? 'highlight-tab' : ''">
+          <ng-template pTemplate="content">
+            <form [formGroup]="restablecerForm" (ngSubmit)="validarDatosUsuario()">
+              <p-card>
+                <h3>Restablecer contraseña</h3>
+                <p>Ingrese la información solicitada</p>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="recover_pass_curp">CURP *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="text" id="recover_pass_curp" class="form-control" placeholder="Ingresar CURP"
+                           formControlName="curp" pInputText [maxlength]="18"
+                           [ngClass]="{'ng-dirty ng-invalid': (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched))
+                           || (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched))}"/>
+                    <i class="pi pi-exclamation-triangle" id="icon_alert_recover_pass_curp"></i>
+                  </span>
+                    @if (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                    @if (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched)) {
+                      <span class="campo-obligatorio mt-2">El formato de CURP no es válido.</span>
+                    }
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="recover_pass_mail">Correo electrónico *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="email" id="recover_pass_mail" class="form-control mt-3" placeholder="Ingresar correo"
+                           [maxlength]="50" formControlName="correo" pInputText
+                           [ngClass]="{'ng-dirty ng-invalid': (f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)) ||
+                           (f['correo'].errors?.['pattern'] && (f['correo'].dirty || f['correo'].touched))}"/>
+                    <i class="pi pi-exclamation-triangle" id="icon_alert_recover_pass_mail"></i>
+                  </span>
+                    @if (f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                    @if (f['correo'].errors?.['pattern'] && (f['correo'].dirty || f['correo'].touched)) {
+                      <span class="campo-obligatorio mt-2">El formato de correo no es válido.</span>
+                    }
+                  </div>
+                </div>
+                <div class="flex justify-content-start mt-3 mb-3">
+                  <span class="formato-label">* Campos obligatorios</span>
+                </div>
+                <ng-template pTemplate="footer">
+                  <div class="flex justify-content-end mr-4">
+                    <button id="recover_pass_submit_btn" pButton type="submit" [disabled]="restablecerForm.invalid">
+                      Continuar
+                    </button>
+                  </div>
+                </ng-template>
+              </p-card>
+            </form>
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="2 - Valida tu identidad" [disabled]="indiceTab() !== 1">
+          <ng-template pTemplate="content">
+            <p-card>
+              <h3>Restablecimiento de contraseña</h3>
+              <p>
+                Hemos enviado a tu correo electrónico el código de verificación
+                para poder continuar con el proceso de restablecimiento de contraseña.
+              </p>
+            </p-card>
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="3 - Crea tu contraseña" [disabled]="true">
+        </p-tabPanel>
+        <div class="flex justify-content-center">
+          <p class="p-card-footer">¿Ya tienes cuenta?
+            <a [routerLink]="'./../inicio-sesion'">Inicia sesión aquí </a></p>
+        </div>
+      </p-tabView>
+    </div>
+  </div>
+</div>

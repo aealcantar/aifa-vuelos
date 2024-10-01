@@ -1,0 +1,117 @@
+header {
+  background-color: var(--aifa-mx-base-azul);
+  height: 6rem;
+  padding: 0 1.6rem;
+
+  .inner-header {
+    height: 100%;
+
+    .content-header {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+
+      .titulo-fortaleza {
+        font-size: 1.6rem;
+        font-weight: 700;
+        line-height: 1.9rem;
+        letter-spacing: 0;
+        text-align: left;
+        color: var(--gob-mx-pr-dor-tono1);
+      }
+
+      .texto-fortaleza {
+        font-size: 1.6rem;
+        font-weight: 600;
+        line-height: 1.9rem;
+        letter-spacing: 0;
+        text-align: left;
+        color: var(--gob-mx-base-blanco);
+      }
+
+      .username {
+        font-size: 1.4rem;
+        font-weight: 600;
+        line-height: 1.9rem;
+        letter-spacing: 0;
+        text-align: left;
+        color: var(--gob-mx-base-blanco);
+      }
+
+      .role {
+        font-size: 1.2rem;
+        font-weight: 600;
+        line-height: 1.9rem;
+        letter-spacing: 0;
+        text-align: left;
+        color: var(--gob-mx-base-blanco);
+      }
+
+      .square {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.5rem;
+      }
+
+      .bar {
+        width: 0.1rem;
+        height: 4rem;
+        display: inline-block;
+        background-color: white;
+        border-left: 0.1rem solid white;
+      }
+
+      .text-chico {
+        color: var(--gob-mx-base-blanco);
+      }
+    }
+  }
+}
+
+.notificacion {
+  width: 50px;
+  color: white;
+}
+
+
+::ng-deep .p-message.p-message-secondary {
+  background-color: #FFFFFF;
+  border: 2px solid #F6F6F6;
+  color: #6F7271
+}
+
+.notificacion-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  color: #404041;
+}
+
+.notificacion-content {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+}
+
+.notificacion-date {
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 13.5px;
+  text-align: left;
+  color: #428EFF;
+}
+
+.notificacion-title::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: #98989A;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+

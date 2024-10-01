@@ -1,0 +1,28 @@
+<img src="assets/images/icons/action.svg"  alt="action" (click)="toggle($event)" class="cursor-pointer"
+     (keydown)="handleKeyDown($event)" [style]="{ height: '30px', width: '30px'}"/>
+<p-overlayPanel #op>
+  <ng-template pTemplate="content">
+    <ul class="acciones">
+      <li class="accion" *appTieneAccion="[idsAcciones, EDITAR]" (click)="emitir(EDITAR)" (keydown)="handleKeyDown($event)">
+        <img src="assets/images/icons/tabla-acciones/editar.svg" alt="Editar" />
+        <span class="accion-texto">Editar</span>
+      </li>
+      <li class="accion" *appTieneAccion="[idsAcciones, ELIMINAR]" (click)="emitir(ELIMINAR)" (keydown)="handleKeyDown($event)">
+        <img src="assets/images/icons/tabla-acciones/eliminar.svg" alt="Eliminar" />
+        <span class="accion-texto eliminar">Eliminar</span>
+      </li>
+      <li class="accion" *appTieneAccion="[idsAcciones, COMPLEMENTAR]" (click)="emitir(COMPLEMENTAR)" (keydown)="handleKeyDown($event)">
+        <img src="assets/images/icons/tabla-acciones/complementar.svg" alt="Complementar información" />
+        <span class="accion-texto">Complementar información</span>
+      </li>
+      <li class="accion" *appTieneAccion="[idsAcciones, VER_DETALLE]" (click)="emitir(VER_DETALLE)" (keydown)="handleKeyDown($event)">
+        <img src="assets/images/icons/tabla-acciones/ver_detalle.svg" alt="Complementar información" />
+        <span class="accion-texto">Ver detalle</span>
+      </li>
+      <li class="accion" *appTieneAccion="[idsAcciones, VALIDAR]" (click)="emitir(VALIDAR)" (keydown)="handleKeyDown($event)">
+        <img src="assets/images/icons/tabla-acciones/validar.svg" alt="Validar" [style]="{ padding: '1px' }" />
+        <span class="accion-texto">Validar</span>
+      </li>
+    </ul>
+  </ng-template>
+</p-overlayPanel>

@@ -1,0 +1,11 @@
+@switch (vigencia) {
+  @case (-1) {
+    <p-tag severity="success" value="• Vigente"/>
+  }
+  @case (0) {
+    <p-tag severity="warning" value="• Próximo a vencer"/>
+  }
+  @case (1) {
+    <p-tag severity="danger" value="• Vencido"/>
+  }
+}

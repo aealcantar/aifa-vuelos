@@ -1,0 +1,25 @@
+.p-inputtext:not(textarea) {
+  height: 34px;
+  padding: 0 12px 0 12px;
+  border-radius: 5px;
+  border: 2px solid #f6f6f6;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+}
+
+.p-inputtext:disabled:not(textarea) {
+  background-color: #ddd;
+}
+
+.p-inputtext.ng-dirty.ng-invalid {
+  border: 1px solid #dc3545;
+}
+
+.p-inputtext.ng-dirty.ng-invalid::placeholder {
+  color: #dc3545;
+}

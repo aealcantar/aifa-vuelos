@@ -1,0 +1,66 @@
+<div class="container-fortaleza h-screen">
+  <div class="publico-container h-full">
+    <app-aside-publico-aifa/>
+    <div class="form-section">
+      <form [formGroup]="authForm" (ngSubmit)="iniciarSesion()">
+        <p-card>
+          <h3 class="mb-5">Iniciar sesión</h3>
+          <div class="row">
+            <div class="col-md-12 mb-2">
+              <label for="login_user">CURP<span class="req">*</span>:</label>
+              <span class="input-icon-right w-full">
+                  <input type="text"
+                         id="login_user"
+                         formControlName="curp"
+                         class="form-control mt-3"
+                         pInputText
+                         [maxLength]="18"
+                         placeholder="Ingresar CURP"
+                         [ngClass]="{'ng-dirty ng-invalid': (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched))
+                         || (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched))}"
+                         maxlength="18"/>
+                  <i class="pi pi-exclamation-triangle" id="icon_alert_login_user"></i>
+                </span>
+              @if (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched) ) {
+                <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+              }
+              @if (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched)) {
+                <span class="campo-obligatorio mt-2">El formato de CURP no es válido.</span>
+              }
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label class="control-label" for="contrasenia">Contraseña<span class="req">*</span>:</label>
+              <div class="position-relative input-icon-right w-full">
+                <input #input class="form-control mt-3" id="contrasenia" formControlName="contrasenia"
+                       placeholder="Ingresar contraseña" type="password" [maxlength]="16" pInputText>
+                <i class="pi pi-exclamation-triangle" id="icon_alert_login_password"></i>
+                <img class="absolute mt-3 mr-3"
+                     src="assets/images/icons/eye-open.svg"
+                     id="change_password_type_btn"
+                     alt="Ver Contraseña"
+                     (click)="cambiarVisibilidadPassword(input, $event)"
+                     (keydown)="handleKeyDown($event)"/>
+              </div>
+              @if (f['contrasenia'].errors?.['required'] && (f['contrasenia'].dirty || f['contrasenia'].touched)) {
+                <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+              }
+            </div>
+            <div class="flex justify-content-between mt-3 mb-3">
+              <span class="formato-label">* Campos obligatorios</span>
+              <a [routerLink]="'./../restaurar-contrasena'">
+                <span class="link">¿Olvidó su contraseña?</span>
+              </a>
+            </div>
+          </div>
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <button id="login_submit_btn" pButton type="submit" [disabled]="authForm.invalid">Ingresar</button>
+            </div>
+          </ng-template>
+        </p-card>
+      </form>
+    </div>
+  </div>
+</div>

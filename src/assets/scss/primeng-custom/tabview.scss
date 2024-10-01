@@ -1,0 +1,12 @@
+.p-tabview .p-tabview-nav li.highlight-tab.p-disabled,
+.p-tabview .p-tabview-nav li.highlight-tab.p-component:disabled {
+  opacity: 1;
+}
+
+.p-tabview .p-tabview-nav li.highlight-tab.p-disabled .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li.highlight-tab.p-component:disabled .p-tabview-nav-link {
+  margin-left: 5px;
+  margin-right: 5px;
+  border-color: #09212E;
+  color: #09212E;
+}

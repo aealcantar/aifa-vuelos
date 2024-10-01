@@ -1,0 +1,56 @@
+:host {
+  flex-grow: 1;
+  padding-left: 5px;
+}
+
+.content {
+  position: relative;
+}
+
+.flex {
+  display: flex;
+  align-items: center; /* Alinea verticalmente todos los elementos en el centro */
+  justify-content: flex-start; /* Ajusta según sea necesario para alinear el contenido al inicio */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si es necesario */
+}
+
+.pr-3 {
+  padding-right: 1rem;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
+}
+
+.alert-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-right: 1rem; /* Espacio entre el título y el detalle */
+}
+
+.alert-details {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0;
+  text-align: center;
+  flex: 1; /* Permite que el detalle ocupe el espacio restante */
+}
+
+.success .alert-title,
+.success .alert-details {
+  color: #0A3622;
+}
+
+.error .alert-title,
+.error .alert-details {
+  color: #89070B;
+}
+
+.warn .alert-title,
+.warn .alert-details {
+  color: #664d03;
+}

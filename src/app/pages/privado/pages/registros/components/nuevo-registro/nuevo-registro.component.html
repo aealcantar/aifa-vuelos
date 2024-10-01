@@ -1,0 +1,296 @@
+<div class="p-5">
+  <app-titulo-principal [titulo]="'Nuevo registro de empresa, organismo o autoridad'" [ruta]="'./..'"/>
+</div>
+
+<form [formGroup]="nuevoRegistroForm" (submit)="guardarRegistro()">
+  <p-panel class="ml-3 mr-3" [showHeader]="false">
+    <div class="flex align-content-start ml-3">
+      <p-avatar
+        icon="icon-user_data" styleClass="mr-2" size="xlarge" shape="circle"
+        [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"/>
+      <h2 class="header-panel">Datos iniciales</h2>
+    </div>
+    <div class="flex flex-row mt-4">
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        @if (tipoContrato === 0) {
+          <label class="control-label mb-4" for="numeroContrato">Número de contrato*:</label>
+        }
+        @if (tipoContrato === 1) {
+          <label class="control-label mb-4" for="numeroContrato">Número de documento*:</label>
+        }
+        <span class="input-icon-right w-full">
+        <input id="numeroContrato"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="numeroContrato" oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['numeroContrato'].errors?.['required'] && (f['numeroContrato'].dirty || f['numeroContrato'].touched)}"
+               [placeholder]="tipoContrato === 0 ? 'Ingresar número de contrato' : 'Ingresar número de acuerdo'"
+               [maxLength]="20" pInputText>
+        </span>
+        @if (f['numeroContrato'].errors?.['required'] && (f['numeroContrato'].dirty || f['numeroContrato'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-6 pr-3 pl-3">
+        <label class="control-label mb-4" for="razonSocial">Nombre o Razón Social*:</label>
+        <span class="input-icon-right w-full">
+        <input id="razonSocial"
+               [ngClass]="{'ng-dirty ng-invalid': f['razonSocial'].errors?.['required'] && (f['razonSocial'].dirty || f['razonSocial'].touched)}"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="razonSocial" [maxLength]="50" oninput="this.value = this.value.toUpperCase()"
+               placeholder="Ingresar nombre o razón social" pInputText>
+        <i class="pi pi-exclamation-triangle"></i>
+        </span>
+        @if (f['razonSocial'].errors?.['required'] && (f['razonSocial'].dirty || f['razonSocial'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="rfc">RFC*:</label>
+        <span class="input-icon-right w-full">
+        <input id="rfc" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="rfc" [maxLength]="13"
+               oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': (f['rfc'].errors?.['required'] && (f['rfc'].dirty || f['rfc'].touched) ||
+               (f['rfc'].errors?.['required'] && (f['rfc'].dirty || f['rfc'].touched)))}"
+               placeholder="Ingresar RFC" pInputText>
+        <i class="pi pi-exclamation-triangle" id="icon_alert_recover_pass_curp"></i>
+        </span>
+        @if (f['rfc'].errors?.['required'] && (f['rfc'].dirty || f['rfc'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+
+        @if (f['rfc'].errors?.['pattern'] && (f['rfc'].dirty || f['rfc'].touched)) {
+          <span class="campo-obligatorio mt-2">El formato de RFC no es válido.</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="tipoProveedorContrato">Tipo de organismo*:</label>
+        <p-dropdown id="tipoProveedorContrato" formControlName="tipoProveedor"
+                    styleClass="form-control w-full" [options]="tiposProveedor"
+                    optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                    optionValue="value" placeholder="Seleccionar organismo"
+                    [ngClass]="{'ng-dirty ng-invalid': f['tipoProveedor'].errors?.['required'] && (f['tipoProveedor'].dirty || f['tipoProveedor'].touched)}"
+                    [emptyMessage]="'Sin resultados'">
+        </p-dropdown>
+        @if (f['tipoProveedor'].errors?.['required'] && (f['tipoProveedor'].dirty || f['tipoProveedor'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+    </div>
+    <div class="flex flex-row mt-4">
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="marca">Marca o sigla del organismo*:</label>
+        <span class="input-icon-right w-full">
+        <input id="marca" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="marca" [maxLength]="30" oninput="this.value = this.value.toUpperCase()"
+               [ngClass]="{'ng-dirty ng-invalid': f['marca'].errors?.['required'] && (f['marca'].dirty || f['marca'].touched)}"
+               placeholder="Ingresar marca" pInputText>
+        <i class="pi pi-exclamation-triangle"></i>
+        </span>
+        @if (f['marca'].errors?.['required'] && (f['marca'].dirty || f['marca'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="numColaboradores">Número de colaboradores:</label>
+        <span class="input-icon-right w-full">
+          <input id="numColaboradores" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="numColaboradores" numbersOnly [maxLength]="3"
+                 [ngClass]="{'ng-dirty ng-invalid': f['numColaboradores'].errors?.['required'] && (f['numColaboradores'].dirty || f['numColaboradores'].touched)}"
+                 placeholder="Ingresar colaboradores" pInputText>
+          <i class="pi pi-exclamation-triangle"></i>
+        </span>
+        @if (f['numColaboradores'].errors?.['required'] && (f['numColaboradores'].dirty || f['numColaboradores'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="inicioVigencia">Fecha inicio de vigencia*:</label>
+        <p-calendar formControlName="inicioVigencia" id="inicioVigencia" [showIcon]="true"
+                    [ngClass]="{'ng-dirty ng-invalid': f['inicioVigencia'].errors?.['required'] && (f['inicioVigencia'].dirty || f['inicioVigencia'].touched)}"
+                    [placeholder]="'Seleccionar fecha'" [dateFormat]="'dd/mm/yy'"
+                    [maxDate]="nuevoRegistroForm.get('finVigencia')?.value"/>
+        @if (f['inicioVigencia'].errors?.['required'] && (f['inicioVigencia'].dirty || f['inicioVigencia'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="finVigencia">Fecha fin de vigencia*:</label>
+        <p-calendar formControlName="finVigencia" id="finVigencia" [showIcon]="true"
+                    [ngClass]="{'ng-dirty ng-invalid': f['finVigencia'].errors?.['required'] && (f['finVigencia'].dirty || f['finVigencia'].touched)}"
+                    [placeholder]="'Seleccionar fecha'" [dateFormat]="'dd/mm/yy'"
+                    [minDate]="nuevoRegistroForm.get('inicioVigencia')?.value"
+        />
+        @if (f['finVigencia'].errors?.['required'] && (f['finVigencia'].dirty || f['finVigencia'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 lr-3">
+        <span class="control-label">¿Requiere curso AVSEC?:</span>
+        <div class="flex flex-wrap gap-3 mt-3 checkbox-padding">
+          @for (opcion of avsecOpciones; track opcion.key) {
+            <div class="field-checkbox">
+              <p-radioButton [inputId]="opcion.key" [value]="opcion.value" formControlName="avsec"/>
+              <label [for]="opcion.key" class="control-label pb-2">
+                {{ opcion.name }}
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 lr-3">
+        <span class="control-label">¿Es una sucursal?*:</span>
+        <div class="flex flex-wrap gap-3 mt-3 checkbox-padding">
+          @for (opcion of sucursalOpciones; track opcion.key) {
+            <div class="field-checkbox">
+              <p-radioButton [inputId]="opcion.key" [value]="opcion.value" formControlName="sucursal"/>
+              <label [for]="opcion.key" class="control-label pb-2">
+                {{ opcion.name }}
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    @if (sucursal()) {
+      <div class="flex flex-row mt-4">
+        <div class="sm:col-6 md:col-3 lg:col-4 pr-3 pl-3">
+          <label class="control-label mb-4" for="nombreSucursal">Nombre de la sucursal*:</label>
+          <span class="input-icon-right w-full">
+          <input id="nombreSucursal" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="nombreSucursal" [maxLength]="50"
+                 [ngClass]="{'ng-dirty ng-invalid': f['nombreSucursal'].errors?.['required'] && (f['nombreSucursal'].dirty || f['nombreSucursal'].touched)}"
+                 placeholder="Ingresar nombre de la sucursal" pInputText
+                 oninput="this.value = this.value.toUpperCase()">
+          </span>
+          @if (f['nombreSucursal'].errors?.['required'] && (f['nombreSucursal'].dirty || f['nombreSucursal'].touched)) {
+            <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+          }
+        </div>
+      </div>
+    }
+  </p-panel>
+
+  <p-panel class="ml-3 mr-3" [showHeader]="false">
+    <div class="flex justify-content-between align-items-center">
+      <div class="flex align-content-start ml-3">
+        <p-avatar
+          icon="icon-add-user" styleClass="mr-2" size="xlarge" shape="circle"
+          [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"/>
+        <h2 class="header-panel">Personal autorizado</h2>
+      </div>
+      @if (personalAutorizado().length > 0) {
+        <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                (click)="registrarPersonal()" [disabled]="personalAutorizado().length > 1" onCloseOnNavigation>
+          Registrar personal
+          <img src="assets/images/icons/add_user.svg" alt="Icono Agregar Usuario"/>
+        </button>
+      }
+    </div>
+    @if (personalAutorizado().length === 0) {
+      <div class="flex align-items-center justify-content-center h-30rem">
+        <div class="flex align-items-center flex-column w-30rem">
+          <span class="personal-title">Aún no hay personal registrado</span>
+          <p class="personal-sub-title">Puedes registrar hasta un máximo de 2 personas autorizadas para continuar con el
+            proceso de alta del contrato</p>
+          <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                  (click)="registrarPersonal()" onCloseOnNavigation>
+            Registrar personal
+            <img src="assets/images/icons/add_user.svg" alt="Icono Agregar Usuario"/>
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="px-5 pb-5 mt-3">
+        <p-table [value]="personalAutorizado()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+                 [resizableColumns]="true" [columnResizeMode]="'expand'" [lazy]="true">
+          <ng-template pTemplate="sorticon" let-order>
+            @switch (order) {
+              @case (0) {
+                <img width="14" src="assets/images/icons/chevron-contract.svg" alt=""/>
+              }
+              @case (1) {
+                <img width="14" src="assets/images/icons/chevron-down.svg" alt=""/>
+              }
+              @default {
+                <img width="14" src="assets/images/icons/chevron-up.svg" alt=""/>
+              }
+            }
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">CURP</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Nombre(s)</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Apellido paterno</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Apellido materno</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Correo electrónico</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Cargo que desempeña</span>
+                </div>
+              </th>
+              <th scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Acciones</span>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-personal let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ personal.curp }}</td>
+              <td>{{ personal.nombre }}</td>
+              <td>{{ personal.paterno }}</td>
+              <td>{{ personal.materno }}</td>
+              <td>{{ personal.correo }}</td>
+              <td>{{ personal.cargo }}</td>
+              <td>
+                <div class="flex gap-3 align-items-center" onCloseOnNavigation>
+                  <p-avatar icon="icon-user-star" styleClass="mr-2" size="xlarge" shape="circle"
+                            pTooltip="Usuario principal"
+                            [tooltipPosition]="'left'"
+                            [style]="{ 'background-color': '#F4DB6066', color: '#C1A519', width: '30px', height: '30px'}"/>
+                  <app-tabla-acciones-overlay
+                    [idsAcciones]="acciones"
+                    (opcionSeleccionada)="obtenerAccionSeleccionada($event, personal, rowIndex)"></app-tabla-acciones-overlay>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+  </p-panel>
+
+  <div class="flex justify-content-between align-items-center">
+    <div class="flex justify-content-start mt-3 mb-3 ml-4">
+      <span class="formato-label">* Campos obligatorios</span>
+    </div>
+    <div class="flex justify-content-end gap-5 pt-9 pb-5 pr-4">
+      <button class="p-button-outlined" pButton (click)="cancelar()" type="button">Cancelar</button>
+      <button pButton [disabled]="nuevoRegistroForm.invalid || personalAutorizado().length === 0" type="submit">
+        Guardar
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,27 @@
+::ng-deep .p-tabview .p-tabview-panels  {
+  background-color: transparent;
+}
+
+::ng-deep .p-tabview .p-tabview-nav {
+  background-color: transparent;
+}
+
+p-tabview {
+  max-width: 450px;
+}
+
+::ng-deep .p-tabview-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  margin-left: 5px;
+  margin-right: 5px;
+  border-color: #09212E;
+  color: #09212E;
+}
+
+::ng-deep .p-tabview .p-tabview-nav {
+  border: 2px solid transparent;
+}

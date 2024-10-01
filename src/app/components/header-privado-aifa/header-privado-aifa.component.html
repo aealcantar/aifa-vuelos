@@ -1,0 +1,65 @@
+<header>
+  <div class="inner-header">
+    <div class="content-header">
+      <div class="flex align-items-center">
+        <span class="titulo-fortaleza">
+            <img src="assets/images/logo_header.svg" alt="Aeropuerto Internacional">
+        </span>
+        <span class="gob-mx-base-blanco pr-4">|</span>
+        <span class="texto-fortaleza">
+           Sistema Fortaleza
+        </span>
+      </div>
+      <div class="flex justify-content-between align-items-center">
+        <div class="flex px-3">
+          <div class="flex flex-column px-4">
+            <span class="username">{{ usuarioSesion?.nombre }}</span>
+            <span class="role block text-right font-medium">{{ usuarioSesion?.rol }}</span>
+          </div>
+          <div class="square bg-aifa-mx-pr-verde-tono3 flex justify-content-center align-items-center p-3 px-3">
+            <img src="/assets/images/icons/user.svg" alt=""/>
+          </div>
+        </div>
+        <span class="bar"></span>
+        @if (notificaciones().length === 0) {
+          <div class="card flex justify-content-center notificacion">
+            <i class="pi pi-bell text-3xl"></i>
+          </div>
+        } @else {
+          <div class="card flex justify-content-center notificacion">
+            <i class="pi pi-bell text-3xl" pBadge [value]="notificaciones().length" (click)="notificacion.toggle($event)"
+               (keydown)="handleKeyDown($event)" [style]="{ cursor: 'pointer' }"></i>
+          </div>
+          <p-overlayPanel #notificacion [style]="{ width: '370px', background: '#FFF', border: 'none'}"
+                          [styleClass]="'custom-overlaypanel'">
+            <ng-template pTemplate="content">
+              <div class="flex flex-column gap-3 w-25rem">
+                @for (notificacion of notificaciones(); track notificacion.ID_NOTIFICACION; ) {
+                  <p-messages severity="secondary" [style]="{ width: '341px', cursor: 'pointer' }" [showTransitionOptions]="'500ms'"
+                              [hideTransitionOptions]="'500ms'" closable="true"
+                              (keydown)="handleKeyDown($event)"
+                              (click)="cerrarNotificacion(notificacion.ID_NOTIFICACION)">
+                    <ng-template pTemplate>
+                      <div class="flex flex-column">
+                        <div class="ml-2 pt-2 notificacion-title">{{ notificacion.NOM_NOTIFICACION }}</div>
+                        <div class="ml-2 pt-2 notificacion-content">{{ notificacion.REF_NOTIFICACION }}</div>
+                        <div class="ml-2 pt-2 notificacion-date">{{ notificacion.STP_ALTA_REGISTRO }}</div>
+                      </div>
+                    </ng-template>
+                  </p-messages>
+                }
+              </div>
+            </ng-template>
+          </p-overlayPanel>
+        }
+        <span class="bar"></span>
+        <div class="flex align-items-center justify-content-between cursor-pointer px-3 close-sesion"
+             (click)="cerrarSesion()" (keydown)="handleKeyDown($event)">
+          <span class="text-chico px-2">Cerrar sesión</span>
+          <img class="cursor-pointer" src="/assets/images/icons/logout.svg" alt=""
+               style="fill: white;"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

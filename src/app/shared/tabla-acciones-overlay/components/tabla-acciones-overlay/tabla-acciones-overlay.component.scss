@@ -1,0 +1,43 @@
+.acciones {
+  display: grid;
+  padding: 0 !important;
+  background-color: #09212E;
+  margin: 0 !important;
+  border-radius: 10px !important;
+}
+
+.accion {
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  background-color: #09212E;
+  transition: background-color 0.3s ease;
+  padding: 1rem;
+}
+
+.accion-texto {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.accion:hover {
+  background-color: #F6FAFF;
+}
+
+.accion:hover .accion-texto {
+  color: #428EFF;
+}
+
+.accion:hover img {
+  filter: brightness(0) saturate(100%) invert(35%) sepia(89%) saturate(2814%) hue-rotate(194deg) brightness(97%) contrast(101%);
+}
+
+.eliminar {
+  color: red !important;
+}

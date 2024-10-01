@@ -1,0 +1,19 @@
+<div class="{{ message.severity }} content">
+  <div class="flex justify-content-start align-items-center">
+    <div class="pr-3 pt-1">
+      @switch (message.severity) {
+        @case ('success') {
+          <img src="assets/images/icons/alerta-success.svg" class="mr-1" alt=""/>
+        }
+        @case ('error') {
+          <img src="assets/images/icons/alerta-error.svg" class="mr-1" alt=""/>
+        }
+        @case ('warn') {
+          <img src="assets/images/icons/alert-warn.svg" class="mr-1" alt=""/>
+        }
+      }
+    </div>
+    <span class="alert-title pr-3">{{ message.summary }}</span>
+    <p class="alert-details m-0">{{ message.detail }}</p>
+  </div>
+</div>

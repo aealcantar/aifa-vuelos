@@ -1,0 +1,147 @@
+<div class="container-fortaleza h-screen">
+  <div class="publico-container h-full">
+    <app-aside-publico-aifa/>
+    <div class="form-section">
+      <p-tabView [activeIndex]="indiceTab()">
+        <p-tabPanel header="1 - Registra tus datos" [disabled]="indiceTab() !== 0">
+          <ng-template pTemplate="content">
+            <form [formGroup]="registroForm" (ngSubmit)="irSiguienteSeccion()">
+              <p-card>
+                <h3>Crear cuenta</h3>
+                <p>
+                  Ingresa la información solicitada y consulta tu correo para
+                  continuar con la creación de tu cuenta
+                </p>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="new_account_curp">CURP *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="text"
+                           id="new_account_curp"
+                           class="form-control"
+                           placeholder="Ingresar CURP"
+                           formControlName="curp"
+                           pInputText
+                           [maxlength]="18"
+                           [ngClass]="{'ng-dirty ng-invalid': f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched)}"
+                    />
+                    <i class="pi pi-exclamation-triangle md" id="icon_alert_new_account_curp"></i>
+                  </span>
+                    @if (f['curp'].errors?.['required'] && (f['curp'].dirty || f['curp'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                    @if (f['curp'].errors?.['pattern'] && (f['curp'].dirty || f['curp'].touched)) {
+                      <span class="campo-obligatorio mt-2">El formato de CURP no es válido.</span>
+                    }
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="new_account_name">Nombre *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="text"
+                           id="new_account_name"
+                           class="form-control mt-3"
+                           placeholder="Ingresar nombre"
+                           formControlName="nombre"
+                           [maxlength]="20"
+                           pInputText
+                           [ngClass]="{'ng-dirty ng-invalid': f['nombre'].errors?.['required'] && (f['nombre'].dirty || f['nombre'].touched)}"
+                    />
+                    <i class="pi pi-exclamation-triangle" id="icon_alert_new_account_name"></i>
+                  </span>
+                    @if (f['nombre'].errors?.['required'] && (f['nombre'].dirty || f['nombre'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="new_account_mail">Correo electrónico *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="email"
+                           id="new_account_mail"
+                           class="form-control mt-3"
+                           placeholder="Ingresar correo"
+                           [maxlength]="50"
+                           formControlName="correo"
+                           pInputText
+                           [ngClass]="{'ng-dirty ng-invalid': f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)}"
+                    />
+                    <i class="pi pi-exclamation-triangle" id="icon_alert_new_account_mail"></i>
+                  </span>
+                    @if (f['correo'].errors?.['required'] && (f['correo'].dirty || f['correo'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                    @if (f['correo'].errors?.['pattern'] && (f['correo'].dirty || f['correo'].touched)) {
+                      <span class="campo-obligatorio mt-2">El formato de correo electrónico no es válido.</span>
+                    }
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label for="new_account_confirm_mail">Confirmar correo electrónico *:</label>
+                    <span class="input-icon-right w-full">
+                    <input type="email"
+                           id="new_account_confirm_mail"
+                           class="form-control mt-3 mayusculas"
+                           placeholder="Ingresar correo"
+                           [maxlength]="50"
+                           formControlName="confirmarCorreo"
+                           pInputText
+                           [ngClass]="{'ng-dirty ng-invalid': f['confirmarCorreo'].errors?.['required'] && (f['confirmarCorreo'].dirty || f['confirmarCorreo'].touched)}"
+                    />
+                    <i class="pi pi-exclamation-triangle" id="icon_alert_new_account_confirm_mail"></i>
+                  </span>
+                    @if (f['confirmarCorreo'].errors?.['required'] && (f['confirmarCorreo'].dirty || f['confirmarCorreo'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                    @if (f['confirmarCorreo'].errors?.['pattern'] && (f['confirmarCorreo'].dirty || f['confirmarCorreo'].touched)) {
+                      <span class="campo-obligatorio mt-2">El formato de correo electrónico no es válido.</span>
+                    }
+                  </div>
+                </div>
+                <div class="flex justify-content-start mt-3 mb-3">
+                  <span class="formato-label">* Campos obligatorios</span>
+                </div>
+                
+                <ng-template pTemplate="footer">
+                  <div class="flex justify-content-end mr-4">
+                    <button id="new_account_submit_btn" pButton type="submit" [disabled]="registroForm.invalid">Continuar
+                    </button>
+                  </div>
+                </ng-template>
+              </p-card>
+            </form>
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="2 - Valida tu identidad" [disabled]="indiceTab() !== 1">
+          <ng-template pTemplate="content">
+            <p-card>
+              <h3>Validación de identidad</h3>
+              <p>
+                Hemos enviado al correo electrónico registrado un código de verificación para poder validar tus datos y
+                continuar con el proceso de registro.
+              </p>
+            </p-card>
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="3 - Crea tu contraseña" [disabled]="true">
+          <ng-template pTemplate="content">
+          </ng-template>
+        </p-tabPanel>
+        @if(caducado_expirado) {
+          <div class="flex flex-row">
+            <p>El código ha caducado.
+             <a href="javascript:void(0);" (click)="nuevocodigo()"> Solicitar nuevo código</a>              
+            </p>
+          </div>
+        }
+        <div class="flex justify-content-center">
+          <p class="p-card-footer">¿Ya tienes cuenta?
+            <a [routerLink]="'./../../inicio-sesion'">Inicia sesión aquí </a></p>
+        </div>
+      </p-tabView>
+    </div>
+  </div>
+</div>

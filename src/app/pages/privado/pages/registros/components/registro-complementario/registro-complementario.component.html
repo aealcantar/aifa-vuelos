@@ -1,0 +1,557 @@
+<div class="p-5">
+  <app-titulo-principal [titulo]="paginaTitulo" [ruta]="'./../..'"/>
+</div>
+@if (proveedorContrato) {
+
+  @if(proveedorContrato.contrato.refMotivoCancelacion) {
+    <p-messages severity="error" [styleClass]="'ml-4 mr-4'">
+      <ng-template pTemplate>
+        <img src="assets/images/icons/rechazar_icon.svg" width="32"/>
+        <div class="ml-2 titulo-mensaje-rechazado">{{ labelRechazo }}</div>
+        <div class="ml-5">
+          <p class="sub-titulo-mensaje-rechazado">Motivo</p>
+          <span class="content-mensaje-rechazado">{{ proveedorContrato.contrato.refMotivoCancelacion }}</span>
+        </div>
+      </ng-template>
+    </p-messages>
+  }
+}
+<form [formGroup]="nuevoRegistroForm">
+  <p-panel class="ml-3 mr-3" [showHeader]="false">
+    <div class="flex align-content-start ml-3">
+      <p-avatar
+        icon="icon-user_data"
+        styleClass="mr-2"
+        size="xlarge"
+        [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+        shape="circle"/>
+      <h2 class="header-panel">Datos iniciales</h2>
+    </div>
+    <div class="flex flex-row mt-4">
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="numeroContrato">{{ labelTitulo }}</label>
+        <input id="numeroContrato"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="numeroContrato"
+               [placeholder]="'número'"
+               pInputText>
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-6 pr-3 pl-3">
+        <label class="control-label mb-4" for="razonSocial">Nombre o Razón Social:</label>
+        <input id="razonSocial"
+               class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="razonSocial"
+               placeholder="Ingresar nombre o razón social" pInputText>
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="rfc">RFC:</label>
+        <input id="rfc" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="rfc"
+               placeholder="Ingresar RFC" pInputText>
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+
+        <label class="control-label mb-4" for="rfc">Tipo de organismo:</label>
+        <input id="rfc" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="tipoProveedor"
+               placeholder="Ingresar" pInputText>
+
+        @if (false) {
+
+          <label class="control-label mb-4" for="tipoProveedorContrato">Tipo de organismo*:</label>
+          <p-dropdown id="tipoProveedorContrato" formControlName="tipoProveedor"
+                      styleClass="form-control w-full" [options]="tiposProveedor"
+                      optionLabel="label" [emptyFilterMessage]="'Sin resultados'"
+                      optionValue="value" placeholder="Seleccionar"
+                      [emptyMessage]="'Sin resultados'">
+          </p-dropdown>
+        }
+      </div>
+    </div>
+    <div class="flex flex-row mt-4">
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="marca">Marca o sigla del organismo:</label>
+        <span class="input-icon-right w-full">
+        <input id="marca" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="marca" oninput="this.value = this.value.toUpperCase()"
+               [maxlength]="30"
+               placeholder="Ingresar marca" pInputText>
+        </span>
+        @if (f['marca'].errors?.['required'] && (f['marca'].dirty || f['marca'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="numColaboradores">Número de colaboradores*:</label>
+        <span class="input-icon-right w-full">
+        <input id="numColaboradores" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+               formControlName="numColaboradores" numbersOnly
+               [maxlength]="3"
+               placeholder="Ingresar colaboradores" pInputText/>
+        </span>
+        @if (f['numColaboradores'].errors?.['required'] && (f['numColaboradores'].dirty || f['numColaboradores'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="inicioVigencia">Fecha inicio de vigencia:</label>
+        <p-calendar formControlName="inicioVigencia" id="inicioVigencia" [showIcon]="true"
+                    [placeholder]="'Seleccionar fecha'"/>
+
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="finVigencia">Fecha fin de vigencia:</label>
+        <p-calendar formControlName="finVigencia" id="finVigencia" [showIcon]="true"
+                    [placeholder]="'Seleccionar fecha'"/>
+
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 lr-3">
+        <span class="control-label">¿Requiere curso AVSEC?:</span>
+        <div class="flex flex-wrap gap-3 mt-3 checkbox-padding">
+          @for (opcion of avsecOpciones; track opcion.key) {
+            <div class="field-checkbox">
+              <p-radioButton
+                [inputId]="opcion.key"
+                [value]="opcion.value"
+                formControlName="avsec"/>
+              <label [for]="opcion.key" class="control-label pb-2">
+                {{ opcion.name }}
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="sm:col-6 md:col-3 lg:col-2 pr-3 lr-3">
+        <span class="control-label">¿Es una sucursal?:</span>
+        <div class="flex flex-wrap gap-3 mt-3 checkbox-padding">
+          @for (opcion of sucursalOpciones; track opcion.key) {
+            <div class="field-checkbox">
+              <p-radioButton
+                [inputId]="opcion.key"
+                [value]="opcion.value"
+                formControlName="sucursal"/>
+              <label [for]="opcion.key" class="control-label pb-2">
+                {{ opcion.name }}
+              </label>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    @if (sucursal()) {
+      <div class="flex flex-row mt-4">
+        <div class="sm:col-6 md:col-3 lg:col-4 pr-3 pl-3">
+          <label class="control-label mb-4" for="nombreSucursal">Nombre de la sucursal*:</label>
+          <span class="input-icon-right w-full">
+                 <input id="nombreSucursal"
+                        class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                        formControlName="nombreSucursal" oninput="this.value = this.value.toUpperCase()"
+                        [maxlength]="50"
+                        placeholder="Ingresar nombre de la sucursal" pInputText>
+            </span>
+          @if (f['nombreSucursal'].errors?.['required'] && (f['nombreSucursal'].dirty || f['nombreSucursal'].touched)) {
+            <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+          }
+        </div>
+      </div>
+    }
+    <div class="flex flex-row mt-4">
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="giroEmpresa">Giro de la empresa*:</label>
+        <span class="input-icon-right w-full">
+            <input id="giroEmpresa" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="giroEmpresa" oninput="this.value = this.value.toUpperCase()"
+                   [maxlength]="50"
+                   placeholder="Ingresar giro de la empresa" pInputText>
+        </span>
+        @if (f['giroEmpresa'].errors?.['required'] && (f['giroEmpresa'].dirty || f['giroEmpresa'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-6 lg:col-6 pr-3 pl-3">
+        <label class="control-label mb-4" for="direccion">Dirección completa*:</label>
+        <span class="input-icon-right w-full">
+          <input id="direccion" class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="direccion" oninput="this.value = this.value.toUpperCase()"
+                 [maxlength]="40"
+                 placeholder="Ingresar Dirección completa" pInputText>
+        </span>
+        @if (f['direccion'].errors?.['required'] && (f['direccion'].dirty || f['direccion'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label mb-4" for="numEmpleadosOperativos">Número de empleados operativos*:</label>
+        <span class="input-icon-right w-full">
+          <input id="numEmpleadosOperativos"
+                 class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                 formControlName="numEmpleadosOperativos" numbersOnly
+                 [maxlength]="10"
+                 placeholder="Ingresar" pInputText/>
+        </span>
+        @if (f['numEmpleadosOperativos'].errors?.['required'] && (f['numEmpleadosOperativos'].dirty || f['numEmpleadosOperativos'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+      <div class="sm:col-6 md:col-2 lg:col-2 pr-3 pl-3">
+        <label class="control-label" for="numEmpleadosAdministrativos">Número de empleados
+          administrativos*:</label>
+        <span class="input-icon-right w-full">
+            <input id="numEmpleadosAdministrativos"
+                   class="form-control w-full p-2 border-1 border-solid surface-border border-round"
+                   formControlName="numEmpleadosAdministrativos" numbersOnly
+                   [maxlength]="10"
+                   placeholder="Ingresar" pInputText/>
+          </span>
+        @if (f['numEmpleadosAdministrativos'].errors?.['required'] && (f['numEmpleadosAdministrativos'].dirty || f['numEmpleadosAdministrativos'].touched)) {
+          <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+        }
+      </div>
+    </div>
+
+  </p-panel>
+
+  <p-panel class="ml-3 mr-3" [showHeader]="false">
+    <div class="flex justify-content-between align-items-center" style="margin-bottom: 10px;">
+      <div class="flex align-content-start ml-3">
+        <p-avatar
+          icon="icon-add-user"
+          styleClass="mr-2"
+          size="xlarge"
+          [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+          shape="circle"/>
+        <h2 class="header-panel">Personal autorizado</h2>
+      </div>
+      @if (personalAutorizado().length > 0) {
+        <div class="flex align-content-end ml-3">
+          <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                  style="margin-right: 10px;"
+                  (click)="registrarPersonal()"
+                  [disabled]="!(personalAutorizado().length >= 1 && personalAutorizado().length < 5)">
+            Registrar personal
+            <img src="assets/images/icons/add_user.svg" alt="Icono Agregar Usuario" style="margin: 0px 5px;"/>
+          </button>
+
+          <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                  style="margin-right: 20px;"
+                  (click)="descargarFormato($event)" [disabled]="!numPersonal">
+            Descargar formato
+            <span class="pi pi-cloud-download ml-3"></span>
+          </button>
+        </div>
+      }
+    </div>
+    @if (personalAutorizado().length === 0) {
+      <div class="flex align-items-center justify-content-center h-30rem">
+        <div class="flex align-items-center flex-column w-30rem">
+          <span class="personal-title">Aún no hay personal registrado</span>
+          <p class="personal-sub-title">Puedes registrar hasta un máximo de 2 personas autorizadas para continuar con el
+            proceso de alta del contrato</p>
+          <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                  (click)="registrarPersonal()">
+            Registrar personal
+            <img src="assets/images/icons/add_user.svg" alt="Icono Agregar Usuario" class="ml-3"/>
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="px-5 pb-5">
+        <p-table [value]="personalAutorizado()" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+                 [resizableColumns]="true" [columnResizeMode]="'expand'" [lazy]="true">
+          <ng-template pTemplate="sorticon" let-order>
+            @switch (order) {
+              @case (0) {
+                <img width="14" src="assets/images/icons/chevron-contract.svg" alt=""/>
+              }
+              @case (1) {
+                <img width="14" src="assets/images/icons/chevron-down.svg" alt=""/>
+              }
+              @default {
+                <img width="14" src="assets/images/icons/chevron-up.svg" alt=""/>
+              }
+            }
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="curp" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">CURP</span>
+                  <p-sortIcon field="curp"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="nombres" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Nombre(s)</span>
+                  <p-sortIcon field="nombres"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="paterno" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Apellido paterno</span>
+                  <p-sortIcon field="paterno"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="materno" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Apellido materno</span>
+                  <p-sortIcon field="materno"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="correo" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Correo electrónico</span>
+                  <p-sortIcon field="correo"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="cargo" scope="col">
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Cargo que desempeña</span>
+                  <p-sortIcon field="cargo"></p-sortIcon>
+                </div>
+              </th>
+              <th pSortableColumn="acciones" scope="col" alignFrozen="right" pFrozenColumn>
+                <div class="flex justify-content-between align-items-center">
+                  <span class="text-chico">Acciones</span>
+                  <p-sortIcon field="acciones"></p-sortIcon>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-personal let-rowIndex="rowIndex">
+            <tr>
+              <td>{{ personal.curp }}</td>
+              <td>{{ personal.nombre }}</td>
+              <td>{{ personal.paterno }}</td>
+              <td>{{ personal.materno }}</td>
+              <td>{{ personal.correo }}</td>
+              <td>{{ personal.descCargo }}</td>
+              <td alignFrozen="right" pFrozenColumn>
+                <div class="flex gap-3 align-items-center" onCloseOnNavigation>
+                  @if (personal.idPerfil == 2) {
+                    <p-avatar
+                      icon="icon-user-star"
+                      styleClass="mr-2" pTooltip="Usuario principal"
+                      [tooltipPosition]="'left'" size="xlarge"
+                      [style]="{ 'background-color': '#F4DB6066', color: '#C1A519', width: '30px', height: '30px', padding: '15px'}"
+                      shape="circle"/>
+                  } @else {
+                    <div class="mr-2" [style]="{width: '30px', height: '30px', padding: '15px'}"></div>
+                  }
+                  @if (personal.indAltaGia) {
+                    <div class="mr-2" [style]="{width: '30px', height: '30px', padding: '15px'}"></div>
+                  } @else {
+                    @if (personal.curp | validarUsuarioLogueado) {
+                      <app-tabla-acciones-overlay
+                        [idsAcciones]="acciones"
+                        (opcionSeleccionada)="obtenerAccionSeleccionada($event, personal, rowIndex)"></app-tabla-acciones-overlay>
+                    } @else {
+                      <div class="mr-2" [style]="{width: '30px', height: '30px', padding: '15px'}"></div>
+                    }
+                  }
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+  </p-panel>
+  <div class="flex justify-content-between align-items-center" style="padding: 0px 5px;">
+    <div class="flex justify-content-start mt-3 mb-3 ml-4">
+      <span class="formato-label">* Campos obligatorios</span>
+    </div>
+    <div class="flex justify-content-end gap-5 pt-9 pb-5 pr-4">
+      <button pButton [disabled]="((nuevoRegistroForm.invalid || personalAutorizado().length === 0) || !numPersonal)"
+              (click)="guardarRegistro()">Guardar
+      </button>
+    </div>
+  </div>
+  <!--- AQUI VA LA CARGA DEL FORMATO-->
+  <p-panel class="ml-3 mr-3" [showHeader]="false">
+    <div class="flex justify-content-between align-items-center">
+      <div class="flex align-content-start ml-3">
+        <p-avatar
+          icon="pi pi-file"
+          styleClass="mr-2"
+          size="xlarge"
+          [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+          shape="circle"/>
+        <h2 class="header-panel">Formato del personal autorizado</h2>
+      </div>
+      @if (true) {
+
+        <div class="flex align-content-end ml-3">
+          <button pButton type="button" class="p-button-text-icon-right p-button-primary-green"
+                  [disabled]="documentos().length > 0"
+                  (click)="cargarImagen = true">
+            Cargar formato
+            <span class="pi pi-cloud-upload ml-3"></span>
+          </button>
+        </div>
+      }
+    </div>
+    @if (documentos().length !== 0) {
+      <div class="px-5 pb-5 mt-3">
+        <p-table [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+                 [resizableColumns]="true" [columnResizeMode]="'expand'" [value]="documentos()">
+          <ng-template pTemplate="header">
+            <tr>
+              <th scope="col" colspan="7">
+                <span class="text-chico">Nombre del archivo</span>
+              </th>
+              <th scope="col" class="flex justify-content-end">
+                <span class="text-chico">Acciones</span>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-documento>
+            <tr>
+              <td colspan="7">
+                <div class="flex justify-content-start align-items-center">
+                  <img src="assets/images/icons/icon-pdf.svg" alt="Icono PDF">
+                  <span class="text-chico">{{ documento }}</span>
+                </div>
+              </td>
+              <td class="flex justify-content-end mr-3">
+                <img src="assets/images/icons/icon-detalle.svg" alt="action" (click)="toggle($event)"
+                     class="cursor-pointer"
+                     (keydown)="handleKeyDown($event)" [style]="{ height: '30px', width: '30px'}"/>
+
+                <span class="pi pi-trash cursor-pointer"
+                      style="color: red; font-size: 2rem; padding: 5px; margin-left: 10px;"
+                      (click)="toggleDeleted($event)" (keydown)="handleKeyDown($event)"></span>
+
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    }
+
+  </p-panel>
+
+  <div class="flex justify-content-between align-items-center" style="padding: 0px 5px;">
+    <div class="flex justify-content-start mt-3 mb-3 ml-4">
+      <span class="formato-label"></span>
+    </div>
+    <div class="flex justify-content-end gap-5 pt-9 pb-5 pr-4">
+      <button class="p-button-outlined" pButton (click)="cancelar()">Cancelar</button>
+      <button pButton
+              [disabled]="((nuevoRegistroForm.invalid || personalAutorizado().length === 0) || documentos().length === 0 || !numPersonal)"
+              (click)="finalizarRegistro()">Finalizar
+      </button>
+    </div>
+  </div>
+</form>
+
+<p-dialog [modal]="true" [(visible)]="cargarImagen" [style]="{ width: '55rem' }" [closable]="false">
+  <div class="flex align-content-start ml-3">
+    <p-avatar
+      icon="icon-add-user"
+      styleClass="mr-2"
+      size="xlarge"
+      [style]="{ 'background-color': '#F4EBFF', color: '#2a1261', border: '3px solid #F9F5FF' }"
+      shape="circle"/>
+    <div>
+      <span class="title-personal-autorizado">Cargar formato del personal autorizado</span>
+      <p class="sub-title-personal-autorizado">Recuerda que deberá contener la firma de cada persona registrada</p>
+    </div>
+  </div>
+  <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="false"
+                accept="application/pdf" [invalidFileTypeMessageDetail]="'El formato de documento es incorrecto.'"
+                [invalidFileLimitMessageSummary]="''" [invalidFileTypeMessageSummary]="''"
+                [invalidFileLimitMessageDetail]="'El peso del documento excede al permitido.'"
+                maxFileSize="5120000" (onUpload)="onTemplatedUpload()" (onSelect)="onSelectedFiles($event)">
+
+    <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback"
+                 let-uploadCallback="uploadCallback" let-clearCallback="clearCallback">
+      <div class="flex flex-wrap justify-content-between align-items-center flex-1 gap-2">
+        <div class="flex gap-2">
+          <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true" [outlined]="true"
+                    id="choose_btn"/>
+
+          <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true" [outlined]="true"
+                    severity="success" [disabled]="!files || files.length === 0" id="load_btn"/>
+          <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true" severity="danger"
+                    [disabled]="!files || files.length === 0" id="clear_btn"/>
+
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles"
+                 let-removeFileCallback="removeFileCallback"
+                 let-removeUploadedFileCallback="removeUploadedFileCallback">
+      @if (files?.length > 0) {
+        <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+          @for (file of files; track file.objectURL; let index = $index) {
+            <div
+              class="card m-0 flex justify-content-around border-1 border-round surface-border align-items-center gap-3 bg-file"
+              [style]="{width: '500px'}">
+              <div>
+                <img role="presentation" [alt]="file.name" src="/assets/images/icons/icon-pdf.svg" width="100"
+                     height="50"/>
+              </div>
+              <div class="flex flex-column justify-content-start">
+                <span class="font-semibold">{{ file.name }}</span>
+                <div>{{ formatSize(file.size) }}</div>
+              </div>
+              <div class="flex justify-content-end">
+                <p-button icon="pi pi-times" (onClick)="onRemoveTemplatingFile($event, file, removeFileCallback, index)"
+                          [outlined]="true" [rounded]="true" severity="danger"/>
+              </div>
+            </div>
+          }
+        </div>
+      }
+      @if (uploadedFiles?.length > 0) {
+        <div>
+          <div class="flex flex-wrap p-0 sm:p-5 gap-5">
+            @for (file of uploadedFiles; track file.objectURL; let index = $index) {
+              <div
+                class="card m-0 pr-8 flex justify-content-around border-1 surface-border align-items-center gap-3 bg-file"
+                [style]="{width: '500px'}">
+                <div>
+                  <img role="presentation" [alt]="file.name" src="/assets/images/icons/icon-pdf.svg" width="100"
+                       height="50"/>
+                </div>
+                <div class="flex flex-column justify-content-start">
+                  <span class="font-semibold">{{ file.name }}</span>
+                  <div>{{ formatSize(file.size) }} Documento cargado</div>
+                </div>
+                <div class="flex justify-content-end">
+                  <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(index)" [outlined]="true"
+                            [rounded]="true" severity="danger"/>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </ng-template>
+
+    <ng-template pTemplate="file"></ng-template>
+    <ng-template pTemplate="empty">
+      <div class="flex align-items-center justify-content-center flex-column border-dashed border-1">
+        <i class="icon-cloud-upload p-5 text-8xl text-400 "></i>
+        <span class="mt-4 mb-0">
+          <span class="text-link"> Arrastra y suelta o </span>
+            <button pButton type="button" class="p-button-text p-0 m-0"
+                    (keydown)="handleKeyDown($event)"
+                    (click)="seleccionarArchivo()"
+                    [style]="{ border: 'none', background: 'transparent'}"> elige el archivo </button>
+          <span class="text-link"> para cargar</span>
+        </span>
+        <p class="mt-4 mb-4">Selecciona un archivo pdf no mayor a 5MB de peso </p>
+      </div>
+    </ng-template>
+
+  </p-fileUpload>
+  <div class="flex justify-content-center gap-3 pt-5">
+    <button id="cancel_close_sesion_btn" class="p-button-outlined" pButton type="button"
+            (click)="cancelarCargaArchivo()">Cancelar
+    </button>
+    <button id="accept_close_sesion_btn" pButton type="button" [disabled]="!files || files.length === 0"
+            (click)="cargarArchivo()">Cargar
+    </button>
+  </div>
+</p-dialog>

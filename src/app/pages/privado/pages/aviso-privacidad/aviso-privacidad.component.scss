@@ -1,0 +1,21 @@
+.box-aviso-privacidad {
+    width: 50vw;
+}
+
+p.aviso-privacidad {
+   text-align: justify;
+   line-height: 1.5;
+}
+
+.box-aviso-privacidad > div {
+   width: 100%;
+  
+}
+
+div.flex.justify-content-end {
+   padding: 0px 20px 10px 0px;
+}
+
+button {
+    font-size: small; 
+}

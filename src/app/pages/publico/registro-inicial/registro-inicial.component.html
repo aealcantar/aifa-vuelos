@@ -1,0 +1,153 @@
+<div class="container-fortaleza h-screen">
+  <div class="publico-container h-full">
+    <app-aside-publico-aifa/>
+    <div class="form-section">
+      <p-tabView [activeIndex]="indiceTab()">
+        <p-tabPanel header="1 - Registra tus datos" [disabled]="true">
+          <ng-template pTemplate="content">
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="2 - Valida tu identidad" [disabled]="indiceTab() !== 1">
+          <ng-template pTemplate="content">
+            <form [formGroup]="codigoForm" (ngSubmit)="irSiguienteSeccion()">
+              <p-card>
+                <h3>Verificar Identidad</h3>
+                <p>
+                  Ingresa el código de seguridad que hemos compartido
+                  a tu correo electrónico para validar tu cuenta.
+                </p>
+                <p-inputOtp class="code-input" [length]="6" [integerOnly]="true" formControlName="codigo">
+                  <ng-template pTemplate="input" let-token let-events="events">
+                    <input
+                      pInputText
+                      class="otp-input"
+                      (input)="events.input($event)"
+                      (keydown)="events.keydown($event)"
+                      type="text"
+                      [attr.value]="token"
+                      [maxLength]="1"/>
+                  </ng-template>
+                </p-inputOtp>
+                @if (isCaducado) {
+                  <div class="flex flex-row">
+                    <p>El código ha caducado.
+                      <a href="javascript:void(0);" (click)="nuevocodigo()"> Solicitar nuevo código</a>   
+                    
+                    </p>
+                  </div>
+                }
+                <ng-template pTemplate="footer">
+                  <div class="flex justify-content-end mr-4">
+                    <button id="new_account_submit_btn" pButton type="submit" [disabled]="codigoForm.invalid">Continuar
+                    </button>
+                  </div>
+                </ng-template>               
+              </p-card>
+            </form>
+           
+          </ng-template>
+        </p-tabPanel>
+        <p-tabPanel header="3 - Crea tu contraseña" [disabled]="indiceTab() !== 2">
+
+          <ng-template pTemplate="content">
+            <form [formGroup]="registroForm" (ngSubmit)="cambiarPassword()">
+              <p-card>
+                <h3>Crear contraseña</h3>
+                <div class="flex-row flex mt-3">
+                  <div class="w-full">
+                    <label class="control-label" for="contrasena">Contraseña<span class="req">*</span>:</label>
+                    <div class="position-relative input-icon-right w-full mt-3">
+                      <p-password formControlName="contrasena" #crearContrasena
+                      [ngClass]="{'ng-dirty ng-invalid': (f['contrasena'].errors?.['required'] && (f['contrasena'].dirty || f['contrasena'].touched))
+|| f['contrasena'].errors?.['pattern'] && (f['contrasena'].dirty || f['contrasena'].touched)}"
+
+                      
+
+                      placeholder="Ingresar contraseña" id="contrasena"
+                      promptLabel="Introduce una nueva contraseña" [maxlength]="16" [minlength]="8"
+                      weakLabel="Seguridad Debíl" mediumLabel="Seguridad Media"
+                      strongLabel="Seguridad Fuerte" [maxlength]="16" [pattern]="REGEX_PASS"
+                      [feedback]="true">
+                        <ng-template pTemplate="footer">
+                          <p-divider/>
+                          <p class="mt-2">Restricciones de contraseña</p>
+                          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                            <li>Mínimo 8 caracteres</li>
+                            <li>Máximo 16 caracteres</li>
+                            <li>Al menos una letra</li>
+                            <li>Al menos un número</li>
+                            <li>Al menos un carácter especial</li>
+                          </ul>
+                        </ng-template>
+                      </p-password>
+                      <i class="pi pi-exclamation-triangle" id="icon_alert_login_password"></i>
+                      <img class="absolute mt-3 mr-3"
+                           src="assets/images/icons/eye-open.svg"
+                           id="change_password_type_btn"
+                           alt="Ver Contraseña"
+                           (click)="cambiarVisibilidadPassword(crearContrasena.input.nativeElement, $event)"
+                           (keydown)="handleKeyDown($event)"/>
+                    </div>
+                    @if (f['contrasena'].errors?.['required'] && (f['contrasena'].dirty || f['contrasena'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-md-12">
+                    <label class="control-label" for="confirmarContrasena">Confirmar contraseña
+                      <span class="req">*</span>:</label>
+                    <div class="position-relative input-icon-right w-full mt-3">
+                      <p-password formControlName="confirmarContrasena" #confirmContrasena
+                      [ngClass]="{'ng-dirty ng-invalid': (f['confirmarContrasena'].errors?.['required'] && (f['confirmarContrasena'].dirty || f['confirmarContrasena'].touched))
+                      || f['confirmarContrasena'].errors?.['pattern'] && (f['confirmarContrasena'].dirty || f['confirmarContrasena'].touched)}"                                  
+                                  placeholder="Ingresar confirmación de contraseña" id="confirmarContrasena"
+                                  promptLabel="Introduce una nueva contraseña" [maxlength]="16" [minlength]="8"
+                                  weakLabel="Seguridad Debíl" mediumLabel="Seguridad Media"
+                                  strongLabel="Seguridad Fuerte" [maxlength]="16" [pattern]="REGEX_PASS"
+                                  [feedback]="true">
+                        <ng-template pTemplate="footer">
+                          <p-divider/>
+                          <p class="mt-2">Restricciones de contraseña</p>
+                          <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                            <li>Mínimo 8 caracteres</li>
+                            <li>Máximo 16 caracteres</li>
+                            <li>Al menos una letra</li>
+                            <li>Al menos un número</li>
+                            <li>Al menos un caracter especial</li>
+                          </ul>
+                        </ng-template>
+                      </p-password>
+                      <i class="pi pi-exclamation-triangle" id="icon_alert_confirm_password"></i>
+                      <img class="absolute mt-3 mr-3"
+                           src="assets/images/icons/eye-open.svg"
+                           id="confirm_password_type_btn"
+                           alt="Ver Contraseña"
+                           (click)="cambiarVisibilidadPassword(confirmContrasena.input.nativeElement, $event)"
+                           (keydown)="handleKeyDown($event)"/>
+                    </div>
+                    @if (f['confirmarContrasena'].errors?.['required'] && (f['confirmarContrasena'].dirty || f['confirmarContrasena'].touched)) {
+                      <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+                    }
+                  </div>
+                 
+                </div>
+                <ng-template pTemplate="footer">
+                  <div class="flex justify-content-end mr-4">
+                    <button id="register_submit_btn" pButton type="submit" [disabled]="registroForm.invalid">Continuar
+                    </button>
+                  </div>
+                </ng-template>
+              </p-card>
+            </form>
+          </ng-template>
+
+        </p-tabPanel>
+        <div class="flex justify-content-center">
+          <p class="p-card-footer">¿Ya tienes cuenta?
+            <a [routerLink]="'./../../inicio-sesion'">Inicia sesión aquí </a></p>
+        </div>
+      </p-tabView>
+    </div>
+  </div>
+</div>

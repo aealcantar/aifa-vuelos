@@ -1,0 +1,13 @@
+<div class="flex align-content-start align-items-center pl-2">
+  <div class="circular-image">
+    <img src="assets/images/icons/alerta-warn.svg" alt="Precaución"/>
+  </div>
+  <h5 class="pl-3">Cerrar sesión</h5>
+</div>
+<p class="pl-2">Se perderán los datos registrados. ¿Desea cerrar sesión?</p>
+<div class="flex justify-content-center gap-8 pt-5">
+  <button id="cancel_close_sesion_btn" class="p-button-outlined" pButton
+          (click)="this.ref.close(false)">Cancelar
+  </button>
+  <button id="accept_close_sesion_btn" pButton (click)="this.ref.close(true)">Aceptar</button>
+</div>

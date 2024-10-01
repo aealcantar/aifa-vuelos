@@ -1,0 +1,51 @@
+p.tag {
+  width: 51px;
+  height: 18px;
+  padding: 2px 8px 2px 8px;
+  gap: 4px;
+  opacity: 0;
+  font-weight: 600;
+}
+
+.p-tag.p-tag-success {
+  color: #1EBF2E;
+  font-size: 11px;
+  background-color: #1EBF2E1F;
+  border-color: #1EBF2E1F;
+  opacity: 0.8;
+}
+
+.p-tag.p-tag-secondary {
+  background-color: #DDDDDD;
+  color: #717171;
+  font-size: 11px;
+  border-color: #DDDDDD;
+}
+
+.p-tag.p-tag-warning {
+  background-color: #FCD40026;
+  color: #FFC107;
+  font-size: 11px;
+  border-color: #FCD40026;
+}
+
+.p-tag.p-tag-danger {
+  background-color: #F8D7DA;
+  color: #DC3545;
+  font-size: 11px;
+  border-color: #F8D7DA;
+}
+
+.p-tag.p-tag-info {
+  background-color: #F4ECFF;
+  color: #8B63EA;
+  font-size: 11px;
+  border-color: #F4ECFF;
+}
+
+.p-tag.p-tag-contrast {
+  background-color: #F6F6F6;
+  color: #A9A8A9;
+  font-size: 11px;
+  border-color: #F6F6F6;
+}

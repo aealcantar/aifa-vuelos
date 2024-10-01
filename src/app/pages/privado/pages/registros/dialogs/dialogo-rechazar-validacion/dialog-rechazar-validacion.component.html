@@ -1,0 +1,38 @@
+<div class="flex align-content-start ml-3 mt-3">
+  <p-avatar
+    [image]="'assets/images/icons/rechazar_icon.svg'"
+    styleClass="mr-3"
+    size="xlarge"
+    shape="circle"/>
+  <div>
+    <span class="title-personal-autorizado">Rechazar {{ titulo }}</span>
+    <p class="sub-title-personal-autorizado">Ingresar los datos solicitados</p>
+  </div>
+</div>
+<form [formGroup]="rechazarValidacionForm" (submit)="guardar()">
+  <div class="flex flex-row mt-4">
+    <div class="lg:col-12 pr-3 pl-3 flex flex-column">
+      <label class="control-label mb-4" for="motivoRechazo">Motivo del rechazo*:</label>
+      <textarea
+        rows="5" [maxlength]="300" [autoResize]="true"
+        cols="30"
+        id="motivoRechazo"
+        formControlName="motivoRechazo"
+        [ngClass]="{'ng-dirty ng-invalid': f['motivoRechazo'].errors?.['required'] && (f['motivoRechazo'].dirty || f['motivoRechazo'].touched)}"
+        placeholder="Redactar el motivo por el que se esta rechazando el contrato"
+        pInputTextarea>
+      </textarea>
+      @if (f['motivoRechazo'].errors?.['required'] && (f['motivoRechazo'].dirty || f['motivoRechazo'].touched)) {
+        <span class="campo-obligatorio mt-2">Campo Obligatorio</span>
+      }
+    </div>
+  </div>
+
+  <div class="flex justify-content-center gap-3 pt-5">
+    <button id="cancel_close_sesion_btn" class="p-button-outlined" pButton type="button"
+            (click)="ref.close()">Cancelar
+    </button>
+    <button id="accept_close_sesion_btn" pButton type="submit" [disabled]="rechazarValidacionForm.invalid">Guardar
+    </button>
+  </div>
+</form>
