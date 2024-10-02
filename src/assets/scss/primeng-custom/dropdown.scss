@@ -21,6 +21,9 @@
   border: 1px solid #dc3545;
 }
 
-p-dropdown.ng-dirty.ng-invalid .p-dropdown .p-dropdown-label{
+p-dropdown.ng-dirty.ng-invalid .p-dropdown .p-dropdown-label {
   color: #dc3545 !important;
+}
+.p-dropdown-item {
+  font-size: 14px;
 }

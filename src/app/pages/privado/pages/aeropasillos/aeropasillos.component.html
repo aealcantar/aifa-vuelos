@@ -1,0 +1,297 @@
+<div class="p-5">
+  <app-titulo-principal titulo="Aeropasillos" />
+</div>
+<div class="px-5 pb-5">
+  <p-panel header="Búsqueda">
+    <form [formGroup]="busquedaForm" (ngSubmit)="buscar()">
+      <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label">Tipo de vuelo:</label>
+          <div class="flex align-items-center mt-3">
+            @for (tipoVuelo of tiposVuelos; track tipoVuelo.value) {
+            <p-radioButton
+              [inputId]="tipoVuelo.label"
+              [value]="tipoVuelo.value"
+              formControlName="tipoVuelo"
+            />
+            <label [for]="tipoVuelo.label" class="control-label ml-1 mr-5 pb-2">
+              {{ tipoVuelo.label }}
+            </label>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label block" for="fechaLlegada"
+            >Fecha de llegada:</label
+          >
+          <p-calendar
+            styleClass="form-control w-full mt-2"
+            inputId="fechaLlegada"
+            formControlName="fechaLlegada"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar fecha'"
+            [dateFormat]="'dd/mm/yy'"
+          />
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label block" for="fechaSalida"
+            >Fecha de salida:</label
+          >
+          <p-calendar
+            styleClass="w-full mt-2"
+            inputId="fechaSalida"
+            formControlName="fechaSalida"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar fecha'"
+            [dateFormat]="'dd/mm/yy'"
+          />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="numeroFolio"
+            >Número de fólio:</label
+          >
+          <input
+            id="numeroFolio"
+            formControlName="numeroFolio"
+            class="w-full mt-2"
+            placeholder="Número de fólio"
+            pInputText
+          />
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="codigo">Código:</label>
+          <input
+            id="codigo"
+            formControlName="codigo"
+            class="w-full mt-2"
+            placeholder="Código"
+            pInputText
+          />
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="lineaAerea">Línea Aérea:</label>
+          <p-dropdown
+            id="tipoProveedorContrato"
+            formControlName="lineaAerea"
+            styleClass="w-full mt-2"
+            [options]="lineaAereas"
+            placeholder="Seleccionar Línea Aérea"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="matricula">Matrícula:</label>
+          <input
+            id="matricula"
+            formControlName="matricula"
+            class="w-full mt-2"
+            placeholder="Matrícula"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="aeronave">Aeronave:</label>
+          <input
+            id="aeronave"
+            formControlName="aeronave"
+            class="w-full mt-2"
+            placeholder="Aeronave"
+            pInputText
+          />
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label" for="posicion">Posición:</label>
+          <input
+            id="posicion"
+            formControlName="posicion"
+            class="w-full mt-2"
+            placeholder="posicion"
+            pInputText
+          />
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label">Pernocta:</label>
+          <div class="flex align-items-center mt-3">
+            <p-radioButton
+              inputId="si"
+              [value]="true"
+              formControlName="esPernocta"
+            />
+            <label [for]="'si'" class="control-label ml-1 mr-5 pb-2">
+              Sí
+            </label>
+            <p-radioButton
+              inputId="no"
+              [value]="false"
+              formControlName="esPernocta"
+            />
+            <label [for]="'no'" class="control-label ml-1 mr-5 pb-2">
+              No
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-12 flex justify-content-end">
+          <button pButton>Buscar</button>
+        </div>
+      </div>
+    </form>
+  </p-panel>
+
+  <p-table
+    styleClass="mt-8"
+    [value]="registros"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [scrollable]="true"
+    [resizableColumns]="true"
+    [columnResizeMode]="'expand'"
+    [lazy]="true"
+    (onLazyLoad)="seleccionarPaginacion($event)"
+  >
+    <ng-template pTemplate="sorticon" let-order>
+      @switch (order) { @case (0) {
+      <img width="14" src="assets/images/icons/chevron-contract.svg" alt="" />
+      } @case (1) {
+      <img width="14" src="assets/images/icons/chevron-down.svg" alt="" />
+      } @default {
+      <img width="14" src="assets/images/icons/chevron-up.svg" alt="" />
+      } }
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Tipo de vuelo</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Fecha de llegada</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Fecha de salida</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Número de fólio</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Código</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Línea Aérea</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Matrícula</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Aeronave</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Posicion</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Pernocta</span>
+          </div>
+        </th>
+        <th scope="col">
+          <div class="flex justify-content-between align-items-center">
+            <span class="text-chico">Acciones</span>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-registro>
+      <tr>
+        <td>
+          {{ registro.tipoVuelo }}
+        </td>
+        <td>
+          {{ registro.fechaLlegada }}
+        </td>
+        <td>
+          {{ registro.fechaSalida }}
+        </td>
+        <td>
+          {{ registro.numeroFolio }}
+        </td>
+        <td>
+          {{ registro.codigo }}
+        </td>
+        <td>
+          {{ registro.lineaAerea }}
+        </td>
+        <td>
+          {{ registro.matricula }}
+        </td>
+        <td>
+          {{ registro.aeronave }}
+        </td>
+        <td>
+          {{ registro.posicion }}
+        </td>
+        <td>
+          {{ registro.esPernocta ? "Sí" : "No" }}
+        </td>
+        <td>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success mr-2"
+          ></button>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-danger"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="14"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+  @if (paginasTotales > 1) {
+  <div class="flex justify-content-between align-items-center bg-white pt-3">
+    <span class="flex-1 text-base"
+      >{{ cantInferiorPagina }} - {{ cantSuperiorPagina }} /
+      {{ paginasTotales }} páginas
+    </span>
+    <div class="flex-1">
+      <p-paginator
+        (onPageChange)="seleccionarPaginacion($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="totalElementos"
+      ></p-paginator>
+    </div>
+    <div class="flex-1 visibility-hidden"></div>
+  </div>
+  }
+</div>
