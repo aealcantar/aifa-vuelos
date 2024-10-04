@@ -8,6 +8,8 @@ import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
+import { ButtonModule } from 'primeng/button';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registro-aeropasillos',
@@ -22,6 +24,8 @@ import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
     CalendarModule,
     DropdownModule,
     AngularSignaturePadModule,
+    ButtonModule,
+    RouterLink,
   ],
   templateUrl: './registro-aeropasillos.component.html',
   styleUrl: './registro-aeropasillos.component.scss',

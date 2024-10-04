@@ -1,6 +1,6 @@
 .p-button {
-  background: var(--azul-tono2);
-  border: 1px solid var(--azul-tono2);
+  // background: var(--azul-tono2);
+  // border: 1px solid var(--azul-tono2);
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -39,9 +39,9 @@
 }
 
 .p-button.p-button-outlined:disabled {
-  background-color: #E5E7EB;
-  border-color: #E5E7EB;
-  color: #8899A8;
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #8899a8;
 }
 
 .p-button:disabled.p-button-danger.p-button-outlined {
@@ -123,26 +123,26 @@
 .p-buttonset.p-button-primary-green > .p-button,
 .p-splitbutton.p-button-primary-green > .p-button {
   color: var(--blanco-tono1);
-  background: #13C296 !important;
-  border: 1px solid #13C296 !important;
+  background: #13c296 !important;
+  border: 1px solid #13c296 !important;
 }
 
 .p-button.p-button-primary-green:enabled:hover,
 .p-buttonset.p-button-primary-green > .p-button:enabled:hover,
 .p-splitbutton.p-button-primary-green > .p-button:enabled:hover {
   color: var(--blanco-tono1);
-  background: #0FA47F !important;
-  border: 1px solid #0FA47F !important;
+  background: #0fa47f !important;
+  border: 1px solid #0fa47f !important;
 }
 
 .p-button.p-button-primary-green:disabled {
-  background-color: #E5E7EB;
-  border-color: #E5E7EB;
-  color: #8899A8;
+  background-color: #e5e7eb;
+  border-color: #e5e7eb;
+  color: #8899a8;
 }
 
 .p-button:disabled {
-  background-color: #E5E7EB !important;
-  border-color: #E5E7EB !important;
-  color: #8899A8 !important;
+  background-color: #e5e7eb !important;
+  border-color: #e5e7eb !important;
+  color: #8899a8 !important;
 }
