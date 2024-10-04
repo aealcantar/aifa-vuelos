@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TituloPrincipalComponent } from '../../../../shared/titulo-principal/titulo-principal.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -15,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { DIEZ_ELEMENTOS_POR_PAGINA } from '../../../../utils/constants';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-aeropasillos',
@@ -30,6 +26,7 @@ import { DIEZ_ELEMENTOS_POR_PAGINA } from '../../../../utils/constants';
     ButtonModule,
     TableModule,
     PaginatorModule,
+    RouterLink,
   ],
   templateUrl: './aeropasillos.component.html',
   styleUrl: './aeropasillos.component.scss',
@@ -131,10 +128,7 @@ export class AeropasillosComponent implements OnInit {
     this.busquedaForm = this.formBuilder.group({
       tipoVuelo: [{ value: 1, disabled: false }, Validators.nullValidator],
       numeroFolio: [{ value: null, disabled: false }, Validators.nullValidator],
-      fechaLlegada: [
-        { value: null, disabled: false },
-        Validators.nullValidator,
-      ],
+      fechaLlegada: [{ value: null, disabled: false }, Validators.nullValidator],
       codigo: [{ value: null, disabled: false }, Validators.nullValidator],
       lineaAerea: [{ value: null, disabled: false }, Validators.nullValidator],
       matricula: [{ value: null, disabled: false }, Validators.nullValidator],
@@ -152,8 +146,7 @@ export class AeropasillosComponent implements OnInit {
   seleccionarPaginacion(event?: TableLazyLoadEvent): void {
     // if (this.authService.validarUsuarioLogueado()) return;
     if (event) {
-      this.numPaginaActual =
-        Math.floor((event.first ?? 0) / (event.rows ?? 1)) + 1;
+      this.numPaginaActual = Math.floor((event.first ?? 0) / (event.rows ?? 1)) + 1;
     }
     if (this.paginacionConFiltrado) {
       this.paginarConFiltros();
@@ -198,10 +191,7 @@ export class AeropasillosComponent implements OnInit {
 
   get cantSuperiorPagina(): number {
     if (this.numPaginaActual <= 1) return 10;
-    const valorSuperior: number =
-      (this.numPaginaActual - 1) * this.cantElementosPorPagina + 10;
-    return valorSuperior > this.totalElementos
-      ? this.totalElementos
-      : valorSuperior;
+    const valorSuperior: number = (this.numPaginaActual - 1) * this.cantElementosPorPagina + 10;
+    return valorSuperior > this.totalElementos ? this.totalElementos : valorSuperior;
   }
 }

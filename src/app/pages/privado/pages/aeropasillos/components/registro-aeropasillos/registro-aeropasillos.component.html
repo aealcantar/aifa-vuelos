@@ -1,0 +1,512 @@
+<div class="p-5">
+  <app-titulo-principal titulo="Registro Aeropasillos" />
+</div>
+<form class="px-5 pb-5" [formGroup]="registroForm">
+  <p-card styleClass="w-full">
+    <div class="grid">
+      <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <label class="control-label">Tipo de vuelo:</label>
+        <div class="flex align-items-center mt-2">
+          @for (tipoVuelo of tiposVuelos; track tipoVuelo.value) {
+          <p-radioButton [inputId]="tipoVuelo.label" [value]="tipoVuelo.value" formControlName="tipoVuelo" />
+          <label [for]="tipoVuelo.label" class="control-label ml-1 mr-5 pb-2">
+            {{ tipoVuelo.label }}
+          </label>
+          }
+        </div>
+      </div>
+      <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+        <label class="control-label">Número de fólio:</label>
+        <input id="numeroFolio" class="form-control w-full mt-2" placeholder="Número de fólio" formControlName="numeroFolio" pInputText />
+      </div>
+    </div>
+  </p-card>
+  <p-panel header="Información de vuelo" styleClass="mt-5" formGroupName="informacionVuelo">
+    <div class="flex align-items-center gap-5 flex-wrap">
+      <div>
+        <label class="control-label">Fecha de llegada:</label>
+        <p-calendar
+          styleClass="w-full mt-2"
+          inputId="fechaLlegada"
+          formControlName="fechaLlegada"
+          [showIcon]="true"
+          [placeholder]="'Seleccionar fecha'"
+          [dateFormat]="'dd/mm/yy'" />
+      </div>
+      <div>
+        <label class="control-label">Código:</label>
+        <input id="codigo" formControlName="codigo" class="w-full mt-2" placeholder="Código" pInputText />
+      </div>
+      <div>
+        <label class="control-label">Línea Aérea:</label>
+        <p-dropdown
+          id="tipoProveedorContrato"
+          formControlName="lineaAerea"
+          styleClass="w-full mt-2"
+          [options]="lineaAereas"
+          placeholder="Seleccionar Línea Aérea"></p-dropdown>
+      </div>
+      <div>
+        <label class="control-label">Matrícula:</label>
+        <input id="matricula" formControlName="matricula" class="w-full mt-2" placeholder="Matrícula" pInputText />
+      </div>
+      <div>
+        <label class="control-label">Aeronave:</label>
+        <input id="aeronave" formControlName="aeronave" class="w-full mt-2" placeholder="Aeronave" pInputText />
+      </div>
+      <div>
+        <label class="control-label">Posición:</label>
+        <input id="posicion" formControlName="posicion" class="w-full mt-2" placeholder="posicion" pInputText />
+      </div>
+      <div>
+        <label class="control-label">Fecha de salida:</label>
+        <p-calendar
+          styleClass="w-full mt-2"
+          inputId="fechaSalida"
+          formControlName="fechaSalida"
+          [showIcon]="true"
+          [placeholder]="'Seleccionar fecha'"
+          [dateFormat]="'dd/mm/yy'" />
+      </div>
+
+      <div>
+        <label class="control-label">Pernocta:</label>
+        <div class="flex align-items-center mt-3">
+          <p-radioButton inputId="si" [value]="true" formControlName="esPernocta" />
+          <label [for]="'si'" class="control-label ml-1 mr-5 pb-2">Sí</label>
+          <p-radioButton inputId="no" [value]="false" formControlName="esPernocta" />
+          <label [for]="'no'" class="control-label ml-1 mr-5 pb-2">No</label>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+  <div class="grid mt-5">
+    <p-panel header="Llegada" class="col-12 md:col-6" formGroupName="llegada">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Número de vuelo:</label>
+          <input id="numeroVuelo" formControlName="numeroVuelo" class="w-full mt-2" placeholder="Número de vuelo" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Origen:</label>
+          <input id="origen" formControlName="origen" class="w-full mt-2" placeholder="Origen" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Pasajeros:</label>
+          <input id="pasajeros" formControlName="pasajeros" class="w-full mt-2" placeholder="Pasajeros" pInputText />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de calzos:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaCalzos"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de acople:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaAcople"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Numero de empleado:</label>
+          <input id="numeroEmpleado" formControlName="numeroEmpleado" class="w-full mt-2" placeholder="Numero de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de acople:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel header="Salida" class="col-12 md:col-6" formGroupName="salida">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Número de vuelo:</label>
+          <input id="numeroVuelo" formControlName="numeroVuelo" class="w-full mt-2" placeholder="Número de vuelo" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Destino:</label>
+          <input id="destino" formControlName="destino" class="w-full mt-2" placeholder="Destino" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Pasajeros:</label>
+          <input id="pasajeros" formControlName="pasajeros" class="w-full mt-2" placeholder="Pasajeros" pInputText />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de desencople:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaDesacople"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de salida:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaSalida"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Numero de empleado:</label>
+          <input id="numeroEmpleado" formControlName="numeroEmpleado" class="w-full mt-2" placeholder="Numero de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de desencople:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="Servicio GPU" class="col-12 md:col-6" formGroupName="servicioGpu">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de inicio:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaInicio"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de terminación:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaTermino"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tiempo total:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="tiempoTotal"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Mecanico:</label>
+          <input id="mecanico" formControlName="mecanico" class="w-full mt-2" placeholder="Mecanico" pInputText />
+        </div>
+      </div>
+    </p-panel>
+    <p-panel header="Servicio PCA" class="col-12 md:col-6" formGroupName="servicioPca">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de inicio:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaInicio"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de terminación:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaTermino"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tiempo total:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="tiempoTotal"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Mecanico:</label>
+          <input id="mecanico" formControlName="mecanico" class="w-full mt-2" placeholder="Mecanico" pInputText />
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="VGDS" class="col-12 md:col-6" formGroupName="vgds">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label block">VGDS:</label>
+          <div class="flex align-items-center mt-2">
+            <p-radioButton inputId="si" value="Si" formControlName="vgds" />
+            <label [for]="'si'" class="control-label ml-1 mr-5 pb-2">Sí</label>
+            <p-radioButton inputId="no" value="No" formControlName="vgds" />
+            <label [for]="'no'" class="control-label ml-1 mr-5 pb-2">No</label>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de Representante de Aerolineas:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel header="Tiempo total" class="col-12 md:col-6" formGroupName="tiempoTotal">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tiempo total de acople:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="tiempoTotalAcople"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Posición:</label>
+          <input id="posicion" formControlName="posicion" class="w-full mt-2" placeholder="Posición" pInputText />
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="Quien recibe" class="col-12" formGroupName="quienRecibe">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Numero de empleado:</label>
+          <input id="numeroEmpleado" formControlName="numeroEmpleado" class="w-full mt-2" placeholder="Numero de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de quien recibe:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="Llegada" class="col-12 md:col-6" formGroupName="llegadaPernocta">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Fecha de llegada:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            inputId="fechaLlegada"
+            formControlName="fechaLlegada"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar fecha'"
+            [dateFormat]="'dd/mm/yy'" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de calzos:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaCalzos"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de acople:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaAcople"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Numero de empleado:</label>
+          <input id="numeroEmpleado" formControlName="numeroEmpleado" class="w-full mt-2" placeholder="Numero de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de acople:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel header="Salida" class="col-12 md:col-6" formGroupName="salidaPernocta">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Fecha de salida:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            inputId="fechaSalida"
+            formControlName="fechaSalida"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar fecha'"
+            [dateFormat]="'dd/mm/yy'" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de desacople:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaDesacople"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de salida:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaSalida"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Numero de empleado:</label>
+          <input id="numeroEmpleado" formControlName="numeroEmpleado" class="w-full mt-2" placeholder="Numero de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de desencople:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="Servicio GPU" class="col-12 md:col-6" formGroupName="servicioGpuPernocta">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de inicio:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaInicio"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de terminación:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaTermino"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tiempo total:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="tiempoTotal"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Mecanico:</label>
+          <input id="mecanico" formControlName="mecanico" class="w-full mt-2" placeholder="Mecanico" pInputText />
+        </div>
+      </div>
+    </p-panel>
+    <p-panel header="Servicio PCA" class="col-12 md:col-6" formGroupName="servicioPcaPernocta">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de inicio:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaInicio"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de terminación:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaTermino"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+      </div>
+      <div class="grid mt-3">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tiempo total:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="tiempoTotal"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Mecanico:</label>
+          <input id="mecanico" formControlName="mecanico" class="w-full mt-2" placeholder="Mecanico" pInputText />
+        </div>
+      </div>
+    </p-panel>
+  </div>
+  <div class="grid mt-5">
+    <p-panel header="VGDS" class="col-12 md:col-6" formGroupName="vgdsPernocta">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label block">VGDS:</label>
+          <div class="flex align-items-center mt-2">
+            <p-radioButton inputId="si" value="Si" formControlName="vgds" />
+            <label [for]="'si'" class="control-label ml-1 mr-5 pb-2">Sí</label>
+            <p-radioButton inputId="no" value="No" formControlName="vgds" />
+            <label [for]="'no'" class="control-label ml-1 mr-5 pb-2">No</label>
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de empleado:</label>
+          <input id="nombreEmpleado" formControlName="nombreEmpleado" class="w-full mt-2" placeholder="Nombre de empleado" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label pb-2 block">Firma de Representante de Aerolineas:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+  </div>
+</form>

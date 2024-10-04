@@ -28,9 +28,13 @@ const routes: Routes = [
     children: [
       {
         path: 'aeropasillos',
+        loadComponent: () => import('./pages/aeropasillos/aeropasillos.component').then((m) => m.AeropasillosComponent),
+      },
+      {
+        path: 'registro-aeropasillos',
         loadComponent: () =>
-          import('./pages/aeropasillos/aeropasillos.component').then(
-            (m) => m.AeropasillosComponent
+          import('./pages/aeropasillos/components/registro-aeropasillos/registro-aeropasillos.component').then(
+            (m) => m.RegistroAeropasillosComponent,
           ),
       },
       {
