@@ -38,6 +38,15 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'aerocares',
+        loadComponent: () => import('./pages/aerocares/aerocares.component').then((m) => m.AerocaresComponent),
+      },
+      {
+        path: 'registro-aerocares',
+        loadComponent: () =>
+          import('./pages/aerocares/components/registro-aerocares/registro-aerocares.component').then((m) => m.RegistroAerocaresComponent),
+      },
+      {
         path: 'registros',
         component: RegistrosComponent,
         canActivate: [adminGIAGuard],

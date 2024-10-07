@@ -14,15 +14,10 @@ import { AutenticacionService } from '../../core/services/autenticacion.service'
 })
 export class MenuPrivadoAifaComponent implements OnInit {
   items: WritableSignal<MenuItem[]> = signal<MenuItem[]>([]);
-  activeItem: WritableSignal<MenuItem | undefined> = signal<
-    MenuItem | undefined
-  >(undefined);
+  activeItem: WritableSignal<MenuItem | undefined> = signal<MenuItem | undefined>(undefined);
   rol: WritableSignal<number> = signal(0);
 
-  constructor(
-    private router: Router,
-    private authService: AutenticacionService
-  ) {
+  constructor(private router: Router, private authService: AutenticacionService) {
     const rol = authService.usuarioSesion?.idRol;
     if (rol) {
       this.rol.update((value) => rol);
@@ -46,14 +41,16 @@ export class MenuPrivadoAifaComponent implements OnInit {
         route: '/privado/registros',
         role: [1],
         command: (): void => {
-          void this.router.navigate(['/privado/registros']);
+          void this.router.navigate(['/privado/aeropasillos']);
         },
       },
       {
         label: 'Aerocares',
         icon: 'icon-expedientes',
-        role: [1, 2],
-        disabled: true,
+        role: [1],
+        command: (): void => {
+          void this.router.navigate(['/privado/aerocares']);
+        },
       },
       // {
       //   label: 'Tarjetas',
@@ -88,9 +85,7 @@ export class MenuPrivadoAifaComponent implements OnInit {
     ]);
 
     const currentRoute = this.router.url;
-    const foundItem = this.items().find((item) =>
-      currentRoute.includes(item['route'])
-    );
+    const foundItem = this.items().find((item) => currentRoute.includes(item['route']));
 
     if (foundItem) {
       this.activeItem.set(foundItem);

@@ -1,0 +1,205 @@
+<div class="p-5">
+  <app-titulo-principal titulo="Registro Aeropasillos" />
+  <form class="px-5 pb-5" [formGroup]="registroForm">
+    <p-card styleClass="w-full" formGroupName="informacionVuelo">
+      <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label">Tipo de vuelo:</label>
+          <div class="flex align-items-center mt-2">
+            @for (tipoVuelo of tiposVuelos; track tipoVuelo.value) {
+            <p-radioButton [inputId]="tipoVuelo.label" [value]="tipoVuelo.value" formControlName="tipoVuelo" />
+            <label [for]="tipoVuelo.label" class="control-label ml-1 mr-5 pb-2">
+              {{ tipoVuelo.label }}
+            </label>
+            }
+          </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 xl:col-3">
+          <label class="control-label">Número de fólio:</label>
+          <input id="numeroFolio" class="form-control w-full mt-2" placeholder="Número de fólio" formControlName="numeroFolio" pInputText />
+        </div>
+      </div>
+    </p-card>
+
+    <p-panel header="Solicitud" class="mt-5 block" formGroupName="solicitud">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Fecha de salida:</label>
+          <p-calendar styleClass="w-full mt-2" formControlName="fechaSalida" [showIcon]="true" [placeholder]="'Seleccionar hora'" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de solicitud de aerolínea:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaSolicitudAerolinea"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Línea Aérea:</label>
+          <p-dropdown
+            id="tipoProveedorContrato"
+            formControlName="lineaAerea"
+            styleClass="w-full mt-2"
+            [options]="lineaAereas"
+            placeholder="Seleccionar"></p-dropdown>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Solicitado por:</label>
+          <p-dropdown
+            id="solicitadoPor"
+            formControlName="solicitadoPor"
+            styleClass="w-full mt-2"
+            [options]="empleados"
+            placeholder="Seleccionar"></p-dropdown>
+        </div>
+      </div>
+    </p-panel>
+
+    <div class="grid mt-5">
+      <p-panel header="Salidas" class="col-12 md:col-6" formGroupName="salidas">
+        <div class="grid">
+          <div class="col-12 md:col-4">
+            <label class="control-label">Abordaje PAX:</label>
+            <input id="abordajePax" formControlName="abordajePax" class="w-full mt-2" placeholder="Abordaje PAX" pInputText />
+          </div>
+          <div class="col-12 md:col-4">
+            <label class="control-label">Termino servicio:</label>
+            <p-calendar
+              styleClass="w-full mt-2"
+              formControlName="terminoServicio"
+              [showIcon]="true"
+              [placeholder]="'Seleccionar hora'"
+              [timeOnly]="true" />
+          </div>
+          <div class="col-12 md:col-4">
+            <label class="control-label">Código de vuelo:</label>
+            <input id="codigoVuelo" formControlName="codigoVuelo" class="w-full mt-2" placeholder="Código de vuelo" pInputText />
+          </div>
+          <div class="col-12 md:col-4">
+            <label class="control-label">Número de vuelo:</label>
+            <p-dropdown
+              id="numeroVuelo"
+              formControlName="numeroVuelo"
+              styleClass="w-full mt-2"
+              [options]="numerosVuelos"
+              placeholder="Seleccionar" />
+          </div>
+        </div>
+      </p-panel>
+
+      <p-panel header="Operación" class="col-12 md:col-6" formGroupName="operacion">
+        <div class="grid">
+          <div class="col-12 md:col-4">
+            <label class="control-label">Aerocar:</label>
+            <p-dropdown id="aerocar" formControlName="aerocar" styleClass="w-full mt-2" [options]="aerocares" placeholder="Seleccionar" />
+          </div>
+          <div class="col-12 md:col-4">
+            <label class="control-label">Base:</label>
+            <p-dropdown id="base" formControlName="base" styleClass="w-full mt-2" [options]="bases" placeholder="Seleccionar" />
+          </div>
+          <div class="col-12 md:col-4">
+            <label class="control-label">Posición:</label>
+            <p-dropdown
+              id="posicion"
+              formControlName="posicion"
+              styleClass="w-full mt-2"
+              [options]="posiciones"
+              placeholder="Seleccionar" />
+          </div>
+        </div>
+      </p-panel>
+    </div>
+    <p-panel header="Adicionales" class="mt-5 block" formGroupName="adicionales">
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de entrega:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaEntrega"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Hora de salida de edificio:</label>
+          <p-calendar
+            styleClass="w-full mt-2"
+            formControlName="horaSalidaEdificio"
+            [showIcon]="true"
+            [placeholder]="'Seleccionar hora'"
+            [timeOnly]="true" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Origen:</label>
+          <input id="origen" formControlName="origen" class="w-full mt-2" placeholder="Origen" pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Matricula:</label>
+          <p-dropdown
+            id="matricula"
+            formControlName="matricula"
+            styleClass="w-full mt-2"
+            [options]="matriculas"
+            placeholder="Seleccionar" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Tipo de vuelo:</label>
+          <div class="flex align-items-center mt-2">
+            @for (tipoVuelo of tiposVuelosRadios; track tipoVuelo.value) {
+            <p-radioButton [inputId]="tipoVuelo.label" [value]="tipoVuelo.value" formControlName="tipoVuelo" />
+            <label [for]="tipoVuelo.label" class="control-label ml-1 mr-5 pb-2">
+              {{ tipoVuelo.label }}
+            </label>
+            }
+          </div>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Observaciones de aerolínea:</label>
+          <input
+            id="observacionesAerolinea"
+            formControlName="observacionesAerolinea"
+            class="w-full mt-2"
+            placeholder="Observaciones de aerolínea"
+            pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de conformidad de aerolínea:</label>
+          <p-dropdown
+            id="conformidadAerolineaNombre"
+            formControlName="conformidadAerolineaNombre"
+            styleClass="w-full mt-2"
+            [options]="conformidadesAerolineasNombres"
+            placeholder="Seleccionar" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Firma de conformidad de aerolínea:</label>
+          <signature-pad></signature-pad>
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Observaciones de operador:</label>
+          <input
+            id="observacionesOperador"
+            formControlName="observacionesOperador"
+            class="w-full mt-2"
+            placeholder="Observaciones de operador"
+            pInputText />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Nombre de coordinador de aerocar:</label>
+          <p-dropdown
+            id="coordinadorAerocar"
+            formControlName="coordinadorAerocar"
+            styleClass="w-full mt-2"
+            [options]="coordinatoresAerocares"
+            placeholder="Seleccionar" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="control-label">Firma de coordinador de aerocar:</label>
+          <signature-pad></signature-pad>
+        </div>
+      </div>
+    </p-panel>
+  </form>
+</div>
