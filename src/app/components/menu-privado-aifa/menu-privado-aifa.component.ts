@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { AutenticacionService } from '../../core/services/autenticacion.service'
 @Component({
   selector: 'app-menu-privado-aifa',
   standalone: true,
-  imports: [TabMenuModule, CommonModule],
+  imports: [TabMenuModule, CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './menu-privado-aifa.component.html',
   styleUrl: './menu-privado-aifa.component.scss',
 })
@@ -27,43 +27,32 @@ export class MenuPrivadoAifaComponent implements OnInit {
   ngOnInit(): void {
     this.items.set([
       {
-        label: 'Inicio',
-        icon: 'icon-empresas',
-        route: '/privado/gestion-contratos',
-        role: [2],
-        command: (): void => {
-          void this.router.navigate(['/privado/gestion-contratos']);
-        },
-      },
-      {
         label: 'Aeropasillos',
         icon: 'icon-empresas',
-        route: '/privado/registros',
+        route: '/privado/aeropasillos',
         role: [1],
         command: (): void => {
           void this.router.navigate(['/privado/aeropasillos']);
         },
       },
+      // {
+      //   label: 'Registros',
+      //   icon: 'icon-empresas',
+      //   route: '/privado/registros',
+      //   role: [1],
+      //   command: (): void => {
+      //     void this.router.navigate(['/privado/registros']);
+      //   },
+      // },
       {
         label: 'Aerocares',
         icon: 'icon-expedientes',
+        route: '/privado/aerocares',
         role: [1],
         command: (): void => {
           void this.router.navigate(['/privado/aerocares']);
         },
       },
-      // {
-      //   label: 'Tarjetas',
-      //   icon: 'icon-tarjetas',
-      //   role: [1, 2],
-      //   disabled: true
-      // },
-      // {
-      //   label: 'Citas',
-      //   icon: 'icon-citas',
-      //   role: [1, 2],
-      //   disabled: true
-      // },
       {
         label: 'Empleados AIFA',
         icon: 'icon-usuarios',

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, DestroyRef, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -10,7 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AngularSignaturePadModule } from '@almothafar/angular-signature-pad';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink } from '@angular/router';
-
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-registro-aeropasillos',
   standalone: true,
@@ -31,6 +31,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './registro-aeropasillos.component.scss',
 })
 export class RegistroAeropasillosComponent implements OnInit {
+  fechaActual: Date = new Date();
   registroForm!: FormGroup;
   tiposVuelos: { label: string; value: number }[] = [
     {
@@ -62,7 +63,7 @@ export class RegistroAeropasillosComponent implements OnInit {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private destroyRef: DestroyRef) {}
   ngOnInit(): void {
     this.inicializarFormulario();
   }
@@ -168,5 +169,47 @@ export class RegistroAeropasillosComponent implements OnInit {
         observaciones: [{ value: null, disabled: false }, Validators.nullValidator],
       }),
     });
+    this.escucharCambiosEsPernocta();
+  }
+
+  escucharCambiosEsPernocta(): void {
+    this.informacionVueloForm['esPernocta'].valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      if (this.esValorFalso(value)) {
+        (this.registroForm.get('llegadaPernocta') as FormGroup).reset();
+        (this.registroForm.get('salidaPernocta') as FormGroup).reset();
+        (this.registroForm.get('servicioGpuPernocta') as FormGroup).reset();
+        (this.registroForm.get('servicioPcaPernocta') as FormGroup).reset();
+        (this.registroForm.get('vgdsPernocta') as FormGroup).reset();
+      }
+    });
+  }
+
+  calcularTiempoTotal(): void {
+    const horaInicio: Date = this.servicioGpuForm['horaInicio'].value;
+    const horaTermino: Date = this.servicioGpuForm['horaTermino'].value;
+
+    // this.servicioGpuForm['tiempoTotal'].setValue(new Date(tiempoTotal));
+  }
+
+  esValorFalso(valor: any): boolean {
+    return !valor;
+  }
+
+  get informacionVueloForm(): {
+    [key: string]: AbstractControl<any>;
+  } {
+    return (this.registroForm.get('informacionVuelo') as FormGroup).controls;
+  }
+
+  get llegadaForm(): {
+    [key: string]: AbstractControl<any>;
+  } {
+    return (this.registroForm.get('llegada') as FormGroup).controls;
+  }
+
+  get servicioGpuForm(): {
+    [key: string]: AbstractControl<any>;
+  } {
+    return (this.registroForm.get('servicioGpu') as FormGroup).controls;
   }
 }

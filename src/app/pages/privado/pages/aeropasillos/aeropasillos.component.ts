@@ -10,8 +10,11 @@ import { ButtonModule } from 'primeng/button';
 import { TableLazyLoadEvent, TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
 import { DIEZ_ELEMENTOS_POR_PAGINA } from '../../../../utils/constants';
-import { RouterLink } from '@angular/router';
-
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TablaAccionesOverlayComponent } from '../../../../shared/tabla-acciones-overlay/components/tabla-acciones-overlay/tabla-acciones-overlay.component';
+import { MenuModule } from 'primeng/menu';
+import { MenuItem } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
 @Component({
   selector: 'app-aeropasillos',
   standalone: true,
@@ -27,11 +30,16 @@ import { RouterLink } from '@angular/router';
     TableModule,
     PaginatorModule,
     RouterLink,
+    TablaAccionesOverlayComponent,
+    ButtonModule,
+    TagModule,
   ],
   templateUrl: './aeropasillos.component.html',
   styleUrl: './aeropasillos.component.scss',
 })
 export class AeropasillosComponent implements OnInit {
+  EDITAR: number = 0;
+  ELIMINAR: number = 1;
   busquedaForm!: FormGroup;
   tiposVuelos: { label: string; value: number }[] = [
     {
@@ -69,11 +77,9 @@ export class AeropasillosComponent implements OnInit {
       tipoVuelo: 'Vuelo Nacional',
       numeroFolio: '123456',
       fechaLlegada: '2021-10-01',
-      codigo: '123456',
+
       lineaAerea: 'Aeroméxico',
       matricula: 'X-1234',
-      aeronave: 'Boeing 737',
-      posicion: '1',
       fechaSalida: '2021-10-01',
       esPernocta: true,
     },
@@ -82,11 +88,8 @@ export class AeropasillosComponent implements OnInit {
       tipoVuelo: 'Vuelo Internacional',
       numeroFolio: '123456',
       fechaLlegada: '2021-10-01',
-      codigo: '123456',
       lineaAerea: 'Volaris',
       matricula: 'X-1234',
-      aeronave: 'Airbus A320',
-      posicion: '2',
       fechaSalida: '2021-10-01',
       esPernocta: false,
     },
@@ -95,11 +98,8 @@ export class AeropasillosComponent implements OnInit {
       tipoVuelo: 'Mixto',
       numeroFolio: '123456',
       fechaLlegada: '2021-10-01',
-      codigo: '123456',
       lineaAerea: 'Interjet',
       matricula: 'X-1234',
-      aeronave: 'Airbus A320',
-      posicion: '3',
       fechaSalida: '2021-10-01',
       esPernocta: true,
     },
@@ -118,10 +118,32 @@ export class AeropasillosComponent implements OnInit {
 
   activeIndex: 0 | 1 = 0;
 
-  constructor(private formBuilder: FormBuilder) {}
+  items: MenuItem[] | undefined = [];
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.inicializarBusquedaForm();
+    this.cargarOpcionesMenu();
+  }
+
+  cargarOpcionesMenu(): void {
+    this.items = [
+      {
+        label: 'Editar',
+        icon: 'pi pi-pencil',
+        command: (): void => {
+          console.log('Editar');
+        },
+      },
+      {
+        label: 'Eliminar',
+        icon: 'pi pi-trash',
+        command: (): void => {
+          console.log('Eliminar');
+        },
+      },
+    ];
   }
 
   inicializarBusquedaForm(): void {
@@ -129,11 +151,10 @@ export class AeropasillosComponent implements OnInit {
       tipoVuelo: [{ value: 1, disabled: false }, Validators.nullValidator],
       numeroFolio: [{ value: null, disabled: false }, Validators.nullValidator],
       fechaLlegada: [{ value: null, disabled: false }, Validators.nullValidator],
-      codigo: [{ value: null, disabled: false }, Validators.nullValidator],
+
       lineaAerea: [{ value: null, disabled: false }, Validators.nullValidator],
       matricula: [{ value: null, disabled: false }, Validators.nullValidator],
-      aeronave: [{ value: null, disabled: false }, Validators.nullValidator],
-      posicion: [{ value: null, disabled: false }, Validators.nullValidator],
+
       fechaSalida: [{ value: null, disabled: false }, Validators.nullValidator],
       esPernocta: [{ value: true, disabled: false }, Validators.nullValidator],
     });
@@ -182,6 +203,20 @@ export class AeropasillosComponent implements OnInit {
     //   next: (respuesta: RegistroResponse) => this.procesarRespuestaPaginacion(respuesta),
     //   error: (error: HttpErrorResponse): void => this.manejarMensajeError(error)
     // });
+  }
+
+  obtenerAccionSeleccionada(idAccion: number, registro: any): void {
+    switch (idAccion) {
+      case this.EDITAR:
+        this.router.navigate(['../registro-aeropasillos', registro.id], {
+          relativeTo: this.activatedRoute,
+        });
+        break;
+      case this.ELIMINAR:
+        break;
+      default:
+        break;
+    }
   }
 
   get cantInferiorPagina(): number {
